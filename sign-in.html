@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html"><img src="images/Travel 1.png" alt="Logo"></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="about.html">About</a></li>
+                <li><a href="explore.html">Explore</a></li>
+                <li><a href="destination.html">Destination</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="auth">
+            <a href="sign-in.html" class="btn-sign-in">Sign In</a>
+            <a href="sign-up.html" class="btn-sign-up">Sign Up</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="sign-in">
+            <h1>Sign In</h1>
+            <form id="signin-form">
+                <label for="username-email">Username/Email</label>
+                <input type="text" id="username-email" name="username-email" required>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+
+                <div class="remember-forgot">
+                    <label>
+                        <input type="checkbox" name="remember"> Remember me
+                    </label>
+                    <a href="#">Forgot Password?</a>
+                </div>
+
+                <button type="submit">Sign In</button>
+
+                <div class="social-media">
+                    <button type="button">
+                        <img src="images/facebook.png" alt="Facebook Logo">
+                        Sign In with Facebook
+                    </button>
+                    <button type="button">
+                        <img src="images/google.png" alt="Gmail Logo">
+                        Sign In with Gmail
+                    </button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Tourism Services. All rights reserved.</p>
+    </footer>
+</body>
+</html>
