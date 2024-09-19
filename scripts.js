@@ -56,10 +56,12 @@ function showSlides() {
     setTimeout(showSlides, 5000); // Change image every 5 seconds
 }
 
+
 function plusSlides(n) {
     slideIndex += n - 1;
     showSlides();
 }
+
 
 document.addEventListener("DOMContentLoaded", () => {
     showSlides();
