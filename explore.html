@@ -5,6 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Explore - Tourism Services</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Gallery Container */
+        #gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            margin: 15px;
+            width: 350px; /* Increased width */
+            height: 250px; /* Increased height */
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(26, 0, 170, 0.8); /* Box shadow */
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.3); /* Zoom effect on hover */
+            z-index: 1;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            opacity: 0.85;
+        }
+
+        /* Hidden description */
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.7); /* Dark background */
+            color: white;
+            padding: 12px;
+            font-family: 'Arial', sans-serif;
+            font-size: 14px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            opacity: 1; /* Show caption on hover */
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -30,31 +86,39 @@
 
     <main>
         <section id="explore">
-            <h1>Explore Thailand</h1>
+            <h1>Places To Visit</h1>
             <div class="explore-content">
-                <div class="explore-image">
-                    <img src="images/retno-dwinika-K5pcAAKVVts-unsplash.jpg" alt="Thailand Image">
-                </div>
-                <div class="explore-description">
-                    <p>
-                        Thailand is a South Asian country and it is one of the top tourist destinations in the world. 
-                        Land of Smiles is another name of Thailand. Bangkok is also the best tourist location and it is 
-                        the capital of Thailand. This country is a magnet for all travelers around the world because 
-                        of the great food, fascinating culture, tropical climate, beaches, majestic mountains, etc. 
-                        Thailand tour package is one of the best tour packages for families and youngsters. This is the 
-                        best location for honeymoon packages.
-                    </p>
-                    <p>
-                        Bangkok is the main tourist location in Thailand. The interesting thing is that Bangkok is 
-                        synonymous with street food. Street food is one of the main attractions in Thailand, 
-                        making it a must-visit place for food lovers.
-                    </p>
-                    <p>
-                        Wat Arun, one of the most stunning temples in Bangkok, is popular for its riverside location and 
-                        unique design, made up of colorfully decorated spires that stand majestically over the water. 
-                        Phi Phi Islands, another popular resort area, offers activities such as scuba diving, snorkeling, 
-                        and kayaking, making it a fantastic destination for adventurous travelers.
-                    </p>
+                <div id="gallery">
+                    <div class="gallery-item">
+                        <img src="images/tai1.jpg" alt="Thailand">
+                        <div class="gallery-caption">
+                            Thailand - Known for its tropical beaches, opulent royal palaces, ancient ruins, and temples.
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/mt.fuji.png" alt="Japan Mt. Fuji">
+                        <div class="gallery-caption">
+                            Japan - Mt. Fuji is an iconic volcano and one of Japan's most popular attractions.
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/singapore.jpg" alt="Singapore">
+                        <div class="gallery-caption">
+                            Singapore - Visit the famous Marina Bay Sands, a symbol of Singapore's luxury and innovation.
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/paris.webp" alt="Paris">
+                        <div class="gallery-caption">
+                            Paris - The Eiffel Tower is an iconic structure symbolizing the romance and history of France.
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/hongkong.webp" alt="Hong Kong Disneyland">
+                        <div class="gallery-caption">
+                            Hong Kong - Disneyland offers magical experiences for families, with world-class attractions.
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

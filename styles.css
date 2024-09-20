@@ -678,3 +678,31 @@ form button {
 .btn-sign-in:hover, .btn-sign-up:hover {
     background-color: #0056b3; /* Darker blue on hover */
 }
+.image-caption {
+    position: relative;
+    display: inline-block;
+    overflow: hidden; /* Ensures the caption doesn't overflow */
+}
+
+.image-caption img {
+    max-width: 100%; /* Responsive image */
+    border-radius: 10px; /* Rounded corners for images */
+}
+
+.caption-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: rgb(252, 252, 252);
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    padding: 10px;
+    text-align: center;
+    opacity: 0; /* Start invisible */
+    transition: opacity 0.3s; /* Fade effect */
+    border-radius: 0 0 10px 10px; /* Rounded corners for caption */
+}
+
+.image-caption:hover .caption-text {
+    opacity: 1; /* Show caption on hover */
+}
