@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Account</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html"><img src="images/Travel 1.png" alt="Logo"></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="about.html">About</a></li>
+                <li><a href="explore.html">Explore</a></li>
+                <li><a href="destination.html">Destination</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="account.html">My Account</a></li>
+            </ul>
+        </nav>
+        <div class="auth">
+            <span id="username-display"></span>
+            <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
+            <a href="sign-in.html" class="btn-sign-in" id="sign-in-link" style="display:none;">Sign In</a>
+            <a href="sign-up.html" class="btn-sign-up" id="sign-up-link" style="display:none;">Sign Up</a>
+        </div>
+    </header>
+    
+    <main>
+        <section id="account">
+            <h1>Welcome to Your Account!</h1>
+            <p>Thank you for signing up. You are now logged in.</p>
+            <p>Your email: <span id="user-email"></span></p>
+            <button id="sign-out">Sign Out</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Tourism Services. All rights reserved.</p>
+    </footer>
+ 
+    <script>
+        // Retrieve user data from local storage
+        const username = localStorage.getItem('username');
+        const userEmail = localStorage.getItem('userEmail');
+
+        // Display username and email
+        document.getElementById('username-display').textContent = username ? `Welcome, ${username}!` : 'Guest';
+        document.getElementById('user-email').textContent = userEmail ? userEmail : 'Guest';
+
+        // Handle sign out
+        document.getElementById('sign-out').addEventListener('click', () => {
+            localStorage.removeItem('username'); // Remove username from local storage
+            localStorage.removeItem('userEmail'); // Remove email from local storage
+            window.location.href = 'sign-in.html'; // Redirect to sign-in page
+        });
+    </script>
+</body>
+</html>

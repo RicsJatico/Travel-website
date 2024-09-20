@@ -312,7 +312,7 @@ main {
     background: rgba(0, 0, 0, 0.6);
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3);
+    box-shadow: 0 4px 10px rgba(0, 255, 255                                                                       ttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttg, 0.3);
 }
 
 /* Footer Styles */
@@ -626,4 +626,55 @@ footer {
 footer p {
     margin: 0;
     font-size: 0.9em;
+}
+/* Form Container Styles */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    background: rgba(0, 0, 0, 0.8); /* Darker background for contrast */
+    border-radius: 20px; /* Rounded corners */
+    padding: 40px; /* Increased padding for better spacing */
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.5); /* More pronounced shadow for depth */
+    backdrop-filter: blur(15px); /* Enhanced blur effect */
+    margin: 20px auto; /* Centered with some margin */
+}
+
+/* Adjusting Input and Button Styles */
+form input {
+    border-radius: 15px; /* More rounded corners for input fields */
+    background: rgba(255, 255, 255, 0.1); /* Slightly lighter background for inputs */
+    color: #ffffff; /* White text for better readability */
+}
+
+form button {
+    border-radius: 15px; /* Rounded corners for buttons */
+    padding: 15px 25px; /* More padding for buttons */
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+.auth {
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* Aligns the auth section to the right */
+}
+
+.auth span {
+    margin-right: 15px; /* Space between the username and buttons */
+}
+
+.btn-sign-in, .btn-sign-up {
+    margin-left: 10px; /* Space between buttons */
+    padding: 10px 15px; /* Button padding */
+    background-color: #007BFF; /* Button background color */
+    color: white; /* Button text color */
+    text-decoration: none; /* Remove underline */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+.btn-sign-in:hover, .btn-sign-up:hover {
+    background-color: #0056b3; /* Darker blue on hover */
 }

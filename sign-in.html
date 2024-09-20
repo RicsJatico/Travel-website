@@ -28,7 +28,7 @@
     <main>
         <section id="sign-in">
             <h1>Sign In</h1>
-            <form id="signin-form">
+            <form id="signin-form" onsubmit="return handleSignIn(event)">
                 <label for="username-email">Username/Email</label>
                 <input type="text" id="username-email" name="username-email" required>
 
@@ -61,5 +61,22 @@
     <footer>
         <p>&copy; 2024 Tourism Services. All rights reserved.</p>
     </footer>
+
+    <script>
+        function handleSignIn(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('username-email').value;
+            const password = document.getElementById('password').value;
+
+            // Simulate successful login and redirect
+            localStorage.setItem('userEmail', email);
+            const username = email.split('@')[0]; // Extract username from email for demonstration
+            localStorage.setItem('username', username);
+            
+            alert('Sign In successful!');
+            window.location.href = 'account.html';
+        }
+    </script>
 </body>
 </html>

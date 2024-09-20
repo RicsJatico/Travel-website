@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const query = searchQuery.value.trim();
             if (query) {
                 alert(`Searching for: ${query}`);
-                // Implement actual search logic here
             }
         });
     }
@@ -43,64 +42,53 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    let slideIndex = 0;
-
-function showSlides() {
-    const slides = document.querySelectorAll(".slide");
-    slides.forEach((slide) => {
-        slide.style.display = "none";
-    });
-    slideIndex++;
-    if (slideIndex > slides.length) { slideIndex = 1; }
-    slides[slideIndex - 1].style.display = "block";
-    setTimeout(showSlides, 5000); // Change image every 5 seconds
-}
-
-
-function plusSlides(n) {
-    slideIndex += n - 1;
-    showSlides();
-}
-
-
-document.addEventListener("DOMContentLoaded", () => {
-    showSlides();
-});
-
-    // Sign-Up page functionality
-    const signUpForm = document.getElementById('sign-up-form');
-
+    // Sign-Up functionality
+    const signUpForm = document.getElementById('signup-form');
     if (signUpForm) {
-        signUpForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            const email = document.getElementById('signup-email').value;
-            const password = document.getElementById('signup-password').value;
-            const confirmPassword = document.getElementById('signup-confirm-password').value;
-
-            if (password !== confirmPassword) {
-                alert('Passwords do not match.');
-                return;
-            }
-
-            alert('Sign Up successful!');
-            // Optionally redirect or perform other actions here
-        });
+        signUpForm.addEventListener('submit', handleSignUp);
     }
 
-    // Handle social sign-up buttons
-    const facebookSignup = document.getElementById('facebook-signup');
-    const gmailSignup = document.getElementById('gmail-signup');
+    function handleSignUp(event) {
+        event.preventDefault();
+        const username = document.getElementById('username-email').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
 
-    if (facebookSignup) {
-        facebookSignup.addEventListener('click', () => {
-            alert('Facebook sign-up not implemented.');
-        });
+        if (password !== confirmPassword) {
+            alert('Passwords do not match.');
+            return;
+        }
+
+        localStorage.setItem('username', username);
+        alert('Sign Up successful!');
+        window.location.href = 'account.html'; // Redirect to account page
     }
 
-    if (gmailSignup) {
-        gmailSignup.addEventListener('click', () => {
-            alert('Gmail sign-up not implemented.');
+    // Display username and dashboard link
+    const username = localStorage.getItem('username');
+    const usernameDisplay = document.getElementById('username-display');
+    const dashboardLink = document.getElementById('dashboard-link');
+    const signInLink = document.getElementById('sign-in-link');
+    const signUpLink = document.getElementById('sign-up-link');
+
+    if (username) {
+        usernameDisplay.textContent = `Welcome, ${username}!`;
+        dashboardLink.style.display = 'inline'; // Show Dashboard link
+        signInLink.style.display = 'none'; // Hide Sign In link
+        signUpLink.style.display = 'none'; // Hide Sign Up link
+    } else {
+        usernameDisplay.textContent = 'Guest';
+        dashboardLink.style.display = 'none'; // Hide Dashboard link
+        signInLink.style.display = 'inline'; // Show Sign In link
+        signUpLink.style.display = 'inline'; // Show Sign Up link
+    }
+
+    // Sign-out functionality
+    const signOutButton = document.getElementById('sign-out');
+    if (signOutButton) {
+        signOutButton.addEventListener('click', () => {
+            localStorage.removeItem('username');
+            window.location.href = 'sign-in.html'; // Redirect to sign-in page
         });
     }
 });

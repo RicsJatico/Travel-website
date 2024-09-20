@@ -20,8 +20,10 @@
             </ul>
         </nav>
         <div class="auth">
-            <a href="sign-in.html" class="btn-sign-in">Sign In</a>
-            <a href="sign-up.html" class="btn-sign-up">Sign Up</a>
+            <span id="username-display"></span>
+            <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
+            <a href="sign-in.html" class="btn-sign-in" id="sign-in-link">Sign In</a>
+            <a href="sign-up.html" class="btn-sign-up" id="sign-up-link">Sign Up</a>
         </div>
     </header>
 
@@ -29,7 +31,7 @@
         <section id="homepage">
             <div class="hero-image">
                 <div class="hero-content">
-                    <h1> Discover Your Next Adventure</h1>
+                    <h1>Discover Your Next Adventure</h1>
                     <div class="search-bar">
                         <input type="text" placeholder="Search country and places to visit">
                         <button type="button">Search</button>
@@ -71,12 +73,12 @@
                 </a>
             </div>
         </section>
-        
-        
     </main>
 
     <footer>
         <p>&copy; 2024 Tourism Services. All rights reserved.</p>
     </footer>
+
+    <script src="header.js"></script> <!-- Include the header.js script -->
 </body>
 </html>
