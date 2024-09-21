@@ -78,7 +78,7 @@
             left: 20px;
             width: calc(100% - 40px);
             height: calc(100% - 80px);
-            background: url('images/mt.fuji.png') no-repeat center center / cover;
+            background: url('images/mt.fuji.png') no-repeat center center / cover; /* Update image URL for Japan */
             border-radius: 10px;
             opacity: 0;
             transition: opacity 0.5s ease;
@@ -214,34 +214,16 @@
             100% { opacity: 0.2; }
         }
 
-        @keyframes glowRegular {
-            0% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.7); }
-            50% { box-shadow: 0 0 15px rgba(255, 255, 255, 1); }
-            100% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.7); }
-        }
-
-        @keyframes glowPremium {
-            0% { box-shadow: 0 0 5px rgba(255, 0, 0, 0.7); }
-            50% { box-shadow: 0 0 15px rgba(255, 0, 0, 1); }
-            100% { box-shadow: 0 0 5px rgba(255, 0, 0, 0.7); }
-        }
-
-        @keyframes glowVIP {
-            0% { box-shadow: 0 0 5px rgba(255, 215, 0, 0.7); }
-            50% { box-shadow: 0 0 15px rgba(255, 215, 0, 1); }
-            100% { box-shadow: 0 0 5px rgba(255, 215, 0, 0.7); }
-        }
-
         .package.regular:hover {
-            animation: glowRegular 1s infinite alternate;
+            animation: glow 1s infinite alternate;
         }
 
         .package.premium:hover {
-            animation: glowPremium 1s infinite alternate;
+            animation: glow 1s infinite alternate;
         }
 
         .package.vip:hover {
-            animation: glowVIP 1s infinite alternate;
+            animation: glow 1s infinite alternate;
         }
     </style>
 </head>
@@ -267,7 +249,7 @@
                 <div class="lock" id="lock">🔒</div>
                 <div class="image-wrapper"></div>
                 <div class="description">
-                    Unveil the enchanting landscapes, rich heritage, and exquisite flavors of Japan.
+                    Experience the rich culture, stunning landscapes, and vibrant traditions of Japan.
                 </div>
                 <div class="instruction-text">Click the lock button to open</div>
             </div>
@@ -277,19 +259,19 @@
             <div class="package regular">
                 <div class="fare-value">$999</div>
                 <h3>Regular Package</h3>
-                <p>Experience the beauty of Japan with guided tours and cultural highlights.</p>
+                <p>Discover Japan's beautiful temples and scenic spots with guided tours.</p>
                 <button class="book-now">Book Now</button>
             </div>
             <div class="package premium">
                 <div class="fare-value">$1499</div>
                 <h3>Premium Package</h3>
-                <p>Enjoy luxurious accommodations and personalized tours.</p>
+                <p>Enjoy luxurious accommodations and unique cultural experiences.</p>
                 <button class="book-now">Book Now</button>
             </div>
             <div class="package vip">
                 <div class="fare-value">$1999</div>
                 <h3>VIP Package</h3>
-                <p>Immerse yourself in the ultimate Japanese experience with private guides and top-notch services.</p>
+                <p>Experience Japan with private guides and tailored itineraries.</p>
                 <button class="book-now">Book Now</button>
             </div>
         </div>
@@ -304,7 +286,7 @@
         const lock = document.getElementById('lock');
 
         lock.addEventListener('click', (event) => {
-            event.stopPropagation();a
+            event.stopPropagation();
             envelope.classList.toggle('locked');
             envelope.classList.toggle('open');
         });
