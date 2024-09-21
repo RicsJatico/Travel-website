@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Destination - Tourism Services</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .flag {
+            width: 30px;
+            cursor: pointer;
+            margin-right: 10px; /* Space between flag and username */
+            margin-left: -5px; /* Move flag slightly to the left */
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -13,14 +21,15 @@
         </div>
         <nav>
             <ul>
-                <li><a href="about.html">About</a></li>
-                <li><a href="explore.html">Explore</a></li>
-                <li><a href="destination.html">Destination</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="account.html">My Account</a></li>
+                <li><a href="about.html" class="nav-link" id="about-link">About</a></li>
+                <li><a href="explore.html" class="nav-link" id="explore-link">Explore</a></li>
+                <li><a href="destination.html" class="nav-link" id="destination-link">Destination</a></li>
+                <li><a href="contact.html" class="nav-link" id="contact-link">Contact</a></li>
+                <li><a href="account.html" class="nav-link" id="account-link">My Account</a></li>
             </ul>
         </nav>
         <div class="auth">
+            <img src="images/usa.jpg" id="language-flag" class="flag" alt="Language Flag">
             <span id="username-display"></span>
             <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
             <a href="sign-in.html" class="btn-sign-in" id="sign-in-link">Sign In</a>
@@ -30,8 +39,8 @@
 
     <main>
         <section id="destination">
-            <h1>Destination</h1>
-            <p>Explore our top destinations around the world.</p>
+            <h1 id="destination-title">Destination</h1>
+            <p id="destination-description">Explore our top destinations around the world.</p>
         </section>
     </main>
 
@@ -39,6 +48,77 @@
         <p>&copy; 2024 Tourism Services. All rights reserved.</p>
     </footer>
 
-    <script src="header.js"></script> <!-- Include the header.js script -->
+    <script src="header.js"></script>
+    <script>
+        // Language selection
+        const titles = {
+            'usa': 'Destination',
+            'spain': 'Destino',
+            'japan': '目的地'
+        };
+        const descriptions = {
+            'usa': 'Explore our top destinations around the world.',
+            'spain': 'Explora nuestros principales destinos alrededor del mundo.',
+            'japan': '世界中の人気の目的地を探検しましょう。'
+        };
+        const flags = {
+            'usa': 'images/usa.jpg',
+            'spain': 'images/Spain_flag_300.png',
+            'japan': 'images/japan.png'
+        };
+        const languages = ['usa', 'spain', 'japan'];
+        let currentLanguage = localStorage.getItem('selectedLanguage') || 'usa';
+
+        // Set the initial language based on localStorage
+        function setLanguage(language) {
+            document.getElementById('destination-title').textContent = titles[language];
+            document.getElementById('destination-description').textContent = descriptions[language];
+            document.getElementById('language-flag').src = flags[language];
+
+            // Update navigation links
+            document.getElementById('about-link').textContent = navLinks[language].about;
+            document.getElementById('explore-link').textContent = navLinks[language].explore;
+            document.getElementById('destination-link').textContent = navLinks[language].destination;
+            document.getElementById('contact-link').textContent = navLinks[language].contact;
+            document.getElementById('account-link').textContent = navLinks[language].account;
+            document.getElementById('dashboard-link').textContent = navLinks[language].dashboard;
+        }
+
+        // Navigation links in different languages
+        const navLinks = {
+            'usa': {
+                about: 'About',
+                explore: 'Explore',
+                destination: 'Destination',
+                contact: 'Contact',
+                account: 'My Account',
+                dashboard: 'Dashboard'
+            },
+            'spain': {
+                about: 'Acerca de',
+                explore: 'Explorar',
+                destination: 'Destino',
+                contact: 'Contacto',
+                account: 'Mi Cuenta',
+                dashboard: 'Tablero'
+            },
+            'japan': {
+                about: '私たちについて',
+                explore: '探検',
+                destination: '目的地',
+                contact: '連絡先',
+                account: 'マイアカウント',
+                dashboard: 'ダッシュボード'
+            }
+        };
+
+        setLanguage(currentLanguage);
+
+        document.getElementById('language-flag').addEventListener('click', () => {
+            currentLanguage = languages[(languages.indexOf(currentLanguage) + 1) % languages.length];
+            localStorage.setItem('selectedLanguage', currentLanguage);
+            setLanguage(currentLanguage);
+        });
+    </script>
 </body>
 </html>

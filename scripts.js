@@ -92,3 +92,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+// Create greeting message
+if (username) {
+    document.getElementById('greeting').textContent = `Welcome to your Account, ${username}!`;
+    document.getElementById('account-message').textContent = 'Thank you for creating an account or logging in.'; // Logged-in message
+    // (Rest of the logged-in code)
+} else {
+    document.getElementById('greeting').textContent = 'Welcome!';
+    document.getElementById('account-message').textContent = 'Welcome! Start your journey and explore places you\'ve never been before. Create an account and book now!'; // Logged-out message
+    document.getElementById('account-link-container').style.display = 'none'; // Hide account link
+}

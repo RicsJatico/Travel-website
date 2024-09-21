@@ -5,6 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Account</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        #account {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: box-shadow 0.3s;
+        }
+        #account:hover {
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+        #sign-out {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        #sign-out:hover {
+            background-color: #d32f2f;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        #dashboard-link {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        #dashboard-link:hover {
+            background-color: #0056b3;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .flag {
+            width: 30px;
+            cursor: pointer;
+            margin-right: 10px; /* Space between flag and username */
+            margin-left: -5px; /* Move flag slightly to the left */
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -13,48 +63,122 @@
         </div>
         <nav>
             <ul>
-                <li><a href="about.html">About</a></li>
-                <li><a href="explore.html">Explore</a></li>
-                <li><a href="destination.html">Destination</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="account.html">My Account</a></li>
+                <li><a href="about.html" class="nav-link" id="about-link">About</a></li>
+                <li><a href="explore.html" class="nav-link" id="explore-link">Explore</a></li>
+                <li><a href="destination.html" class="nav-link" id="destination-link">Destination</a></li>
+                <li><a href="contact.html" class="nav-link" id="contact-link">Contact</a></li>
+                <li id="account-link-container" style="display:none;"><a href="account.html" class="nav-link" id="account-link">My Account</a></li>
             </ul>
         </nav>
         <div class="auth">
-            <span id="username-display"></span>
+            <img src="images/usa.jpg" id="language-flag" class="flag" alt="Language Flag">
+            <span id="username-display" style="display:none;"></span>
             <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
-            <a href="sign-in.html" class="btn-sign-in" id="sign-in-link" style="display:none;">Sign In</a>
-            <a href="sign-up.html" class="btn-sign-up" id="sign-up-link" style="display:none;">Sign Up</a>
+            <a href="sign-in.html" class="btn-sign-in" id="sign-in-link" style="display:block;">Sign In</a>
+            <a href="sign-up.html" class="btn-sign-up" id="sign-up-link" style="display:block;">Sign Up</a>
         </div>
     </header>
-    
+
     <main>
         <section id="account">
-            <h1>Welcome to Your Account!</h1>
-            <p>Thank you for signing up. You are now logged in.</p>
-            <p>Your email: <span id="user-email"></span></p>
-            <button id="sign-out">Sign Out</button>
+            <h1 id="greeting">Welcome!</h1>
+            <p id="account-message">Welcome! Start your journey and explore places you've never been before. Create an account and book now!</p>
+            <button id="sign-out" style="display:none;">Sign Out</button>
         </section>
     </main>
 
     <footer>
         <p>&copy; 2024 Tourism Services. All rights reserved.</p>
     </footer>
- 
+
     <script>
         // Retrieve user data from local storage
         const username = localStorage.getItem('username');
-        const userEmail = localStorage.getItem('userEmail');
 
-        // Display username and email
-        document.getElementById('username-display').textContent = username ? `Welcome, ${username}!` : 'Guest';
-        document.getElementById('user-email').textContent = userEmail ? userEmail : 'Guest';
+        // Create greeting message
+        if (username) {
+            document.getElementById('greeting').textContent = `Welcome to your Account, ${username}!`;
+            document.getElementById('account-message').textContent = 'Thank you for creating an account or logging in.'; // Logged-in message
+            document.getElementById('username-display').textContent = username;
+            document.getElementById('username-display').style.display = 'inline'; // Show username
+            document.getElementById('dashboard-link').style.display = 'inline'; // Show dashboard link
+            document.getElementById('sign-in-link').style.display = 'none'; // Hide sign in link
+            document.getElementById('sign-up-link').style.display = 'none'; // Hide sign up link
+            document.getElementById('sign-out').style.display = 'inline'; // Show sign out button
+            document.getElementById('account-link-container').style.display = 'block'; // Show account link
+        } else {
+            document.getElementById('greeting').textContent = 'Welcome!';
+            document.getElementById('account-message').textContent = 'Welcome! Start your journey and explore places you\'ve never been before. Create an account and book now!'; // Logged-out message
+            document.getElementById('account-link-container').style.display = 'none'; // Hide account link
+        }
+
+        // Language selection
+        const accountMessages = {
+            'usa': 'Thank you for creating an account or logging in.',
+            'spain': 'Gracias por crear una cuenta o iniciar sesión.',
+            'japan': 'アカウントを作成するか、ログインしていただきありがとうございます。'
+        };
+        const navLinks = {
+            'usa': {
+                about: 'About',
+                explore: 'Explore',
+                destination: 'Destination',
+                contact: 'Contact',
+                account: 'My Account',
+                dashboard: 'Dashboard'
+            },
+            'spain': {
+                about: 'Acerca de',
+                explore: 'Explorar',
+                destination: 'Destino',
+                contact: 'Contacto',
+                account: 'Mi Cuenta',
+                dashboard: 'Tablero'
+            },
+            'japan': {
+                about: '私たちについて',
+                explore: '探検',
+                destination: '目的地',
+                contact: '連絡先',
+                account: 'マイアカウント',
+                dashboard: 'ダッシュボード'
+            }
+        };
+        const flags = {
+            'usa': 'images/usa.jpg',
+            'spain': 'images/Spain_flag_300.png',
+            'japan': 'images/japan.png'
+        };
+        const languages = ['usa', 'spain', 'japan'];
+        let currentLanguage = localStorage.getItem('selectedLanguage') || 'usa';
+
+        // Set the initial language based on localStorage
+        function setLanguage(language) {
+            document.getElementById('account-message').textContent = accountMessages[language];
+            document.getElementById('language-flag').src = flags[language];
+
+            // Update navigation links
+            document.getElementById('about-link').textContent = navLinks[language].about;
+            document.getElementById('explore-link').textContent = navLinks[language].explore;
+            document.getElementById('destination-link').textContent = navLinks[language].destination;
+            document.getElementById('contact-link').textContent = navLinks[language].contact;
+            document.getElementById('account-link').textContent = navLinks[language].account;
+            document.getElementById('dashboard-link').textContent = navLinks[language].dashboard;
+        }
+
+        setLanguage(currentLanguage);
 
         // Handle sign out
         document.getElementById('sign-out').addEventListener('click', () => {
             localStorage.removeItem('username'); // Remove username from local storage
-            localStorage.removeItem('userEmail'); // Remove email from local storage
             window.location.href = 'sign-in.html'; // Redirect to sign-in page
+        });
+
+        // Change language on flag click
+        document.getElementById('language-flag').addEventListener('click', () => {
+            currentLanguage = languages[(languages.indexOf(currentLanguage) + 1) % languages.length];
+            localStorage.setItem('selectedLanguage', currentLanguage);
+            setLanguage(currentLanguage);
         });
     </script>
 </body>

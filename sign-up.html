@@ -32,8 +32,8 @@
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" required>
 
-                <label for="username-email">Username/Email</label>
-                <input type="text" id="username-email" name="username-email" required>
+                <label for="username-email">Email</label>
+                <input type="email" id="username-email" name="username-email" required>
 
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
@@ -75,12 +75,20 @@
                 return;
             }
 
-            console.log('User signed up:', username, email);
-            alert('Sign Up successful!');
+            // Get existing users from local storage
+            let users = JSON.parse(localStorage.getItem('users')) || [];
 
-            // Store the user's username and email in local storage
-            localStorage.setItem('username', username);
-            localStorage.setItem('userEmail', email);
+            // Check if the user already exists
+            if (users.some(user => user.email === email)) {
+                alert('User with this email already exists.');
+                return;
+            }
+
+            // Store the user's details in local storage
+            users.push({ username, email, password });
+            localStorage.setItem('users', JSON.stringify(users));
+
+            alert('Sign Up successful!');
 
             // Redirect to the account page
             window.location.href = 'account.html';

@@ -5,6 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tourism Services</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .auth {
+            position: relative;
+        }
+        #logout-button {
+            display: none;
+            margin-left: 10px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #f44336;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        #logout-button:hover {
+            background-color: #d32f2f;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .flag {
+            width: 30px;
+            cursor: pointer;
+            margin-right: 10px; /* Space between flag and username */
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -13,17 +37,19 @@
         </div>
         <nav>
             <ul>
-                <li><a href="about.html">About</a></li>
-                <li><a href="explore.html">Explore</a></li>
-                <li><a href="destination.html">Destination</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="about.html" class="nav-link" id="about-link">About</a></li>
+                <li><a href="explore.html" class="nav-link" id="explore-link">Explore</a></li>
+                <li><a href="destination.html" class="nav-link" id="destination-link">Destination</a></li>
+                <li><a href="contact.html" class="nav-link" id="contact-link">Contact</a></li>
             </ul>
         </nav>
         <div class="auth">
+            <img src="images/usa.jpg" id="language-flag" class="flag" alt="Language Flag">
             <span id="username-display"></span>
             <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
             <a href="sign-in.html" class="btn-sign-in" id="sign-in-link">Sign In</a>
             <a href="sign-up.html" class="btn-sign-up" id="sign-up-link">Sign Up</a>
+            <a href="#" id="logout-button">Logout</a>
         </div>
     </header>
 
@@ -31,7 +57,7 @@
         <section id="homepage">
             <div class="hero-image">
                 <div class="hero-content">
-                    <h1>Discover Your Next Adventure</h1>
+                    <h1 id="main-title">Discover Your Next Adventure</h1>
                     <div class="search-bar">
                         <input type="text" placeholder="Search country and places to visit">
                         <button type="button">Search</button>
@@ -79,6 +105,94 @@
         <p>&copy; 2024 Tourism Services. All rights reserved.</p>
     </footer>
 
-    <script src="header.js"></script> <!-- Include the header.js script -->
+    <script src="header.js"></script>
+    <script>
+        // Check for logged in user
+        const username = localStorage.getItem('username');
+        const isLoggedIn = username !== null;
+
+        // Display username and buttons based on login status
+        document.getElementById('username-display').textContent = isLoggedIn ? username : '';
+        document.getElementById('dashboard-link').style.display = isLoggedIn ? 'inline' : 'none';
+        document.getElementById('sign-in-link').style.display = isLoggedIn ? 'none' : 'inline';
+        document.getElementById('sign-up-link').style.display = isLoggedIn ? 'none' : 'inline';
+        document.getElementById('logout-button').style.display = isLoggedIn ? 'inline' : 'none';
+
+        // Logout functionality
+        document.getElementById('logout-button').addEventListener('click', (event) => {
+            event.preventDefault();
+            localStorage.removeItem('username'); // Remove username from local storage
+            window.location.reload(); // Reload the page to update the UI
+        });
+
+        // Language selection
+        const languageFlag = document.getElementById('language-flag');
+        const titles = {
+            'usa': 'Discover Your Next Adventure',
+            'spain': 'Descubre Tu Próxima Aventura',
+            'japan': '次の冒険を見つける'
+        };
+        const flags = {
+            'usa': 'images/usa.jpg',
+            'spain': 'images/Spain_flag_300.png',
+            'japan': 'images/japan.png'
+        };
+        const buttonTexts = {
+            'usa': {
+                dashboard: 'Dashboard',
+                signIn: 'Sign In',
+                signUp: 'Sign Up',
+                logout: 'Logout',
+                about: 'About',
+                explore: 'Explore',
+                destination: 'Destination',
+                contact: 'Contact'
+            },
+            'spain': {
+                dashboard: 'Tablero',
+                signIn: 'Iniciar sesión',
+                signUp: 'Registrarse',
+                logout: 'Cerrar sesión',
+                about: 'Acerca de',
+                explore: 'Explorar',
+                destination: 'Destino',
+                contact: 'Contacto'
+            },
+            'japan': {
+                dashboard: 'ダッシュボード',
+                signIn: 'サインイン',
+                signUp: 'サインアップ',
+                logout: 'ログアウト',
+                about: '約',
+                explore: '探検する',
+                destination: '目的地',
+                contact: '連絡先'
+            }
+        };
+        const languages = ['usa', 'spain', 'japan'];
+        let currentLanguage = localStorage.getItem('selectedLanguage') || 'usa';
+
+        // Set the initial language based on localStorage
+        function setLanguage(language) {
+            languageFlag.src = flags[language];
+            document.getElementById('main-title').textContent = titles[language];
+            document.getElementById('dashboard-link').textContent = buttonTexts[language].dashboard;
+            document.getElementById('sign-in-link').textContent = buttonTexts[language].signIn;
+            document.getElementById('sign-up-link').textContent = buttonTexts[language].signUp;
+            document.getElementById('logout-button').textContent = buttonTexts[language].logout;
+            document.getElementById('about-link').textContent = buttonTexts[language].about;
+            document.getElementById('explore-link').textContent = buttonTexts[language].explore;
+            document.getElementById('destination-link').textContent = buttonTexts[language].destination;
+            document.getElementById('contact-link').textContent = buttonTexts[language].contact;
+        }
+
+        setLanguage(currentLanguage);
+
+        languageFlag.addEventListener('click', () => {
+            currentLanguage = languages[(languages.indexOf(currentLanguage) + 1) % languages.length];
+            localStorage.setItem('selectedLanguage', currentLanguage);
+            setLanguage(currentLanguage);
+        });
+    </script>
 </body>
 </html>
