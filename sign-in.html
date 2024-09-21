@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .flag {
+            width: 30px;
+            cursor: pointer;
+            margin-right: 10px; /* Space between flag and username */
+            margin-left: -5px; /* Move flag slightly to the left */
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -13,45 +21,48 @@
         </div>
         <nav>
             <ul>
-                <li><a href="about.html">About</a></li>
-                <li><a href="explore.html">Explore</a></li>
-                <li><a href="destination.html">Destination</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="about.html" class="nav-link" id="about-link">About</a></li>
+                <li><a href="explore.html" class="nav-link" id="explore-link">Explore</a></li>
+                <li><a href="destination.html" class="nav-link" id="destination-link">Destination</a></li>
+                <li><a href="contact.html" class="nav-link" id="contact-link">Contact</a></li>
             </ul>
         </nav>
         <div class="auth">
-            <a href="sign-in.html" class="btn-sign-in">Sign In</a>
-            <a href="sign-up.html" class="btn-sign-up">Sign Up</a>
+            <img src="images/usa.jpg" id="language-flag" class="flag" alt="Language Flag">
+            <span id="username-display"></span>
+            <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
+            <a href="sign-in.html" class="btn-sign-in" id="sign-in-link">Sign In</a>
+            <a href="sign-up.html" class="btn-sign-up" id="sign-up-link">Sign Up</a>
         </div>
     </header>
 
     <main>
-        <section id="sign-in">
-            <h1>Sign In</h1>
+        <section id="sign-in" class="form-container">
+            <h1 id="sign-in-title">Sign In</h1>
             <form id="signin-form" onsubmit="return handleSignIn(event)">
-                <label for="username-email">Username or Email</label>
+                <label for="username-email" id="username-label">Username or Email</label>
                 <input type="text" id="username-email" name="username-email" required>
 
-                <label for="password">Password</label>
+                <label for="password" id="password-label">Password</label>
                 <input type="password" id="password" name="password" required>
 
                 <div class="remember-forgot">
-                    <label>
-                        <input type="checkbox" name="remember"> Remember me
+                    <label class="remember-label">
+                        <input type="checkbox" class="remember-checkbox" name="remember"> <span id="remember-label">Remember me</span>
                     </label>
-                    <a href="#">Forgot Password?</a>
+                    <a href="#" class="forgot-password" id="forgot-password-link">Forgot Password?</a>
                 </div>
-
-                <button type="submit">Sign In</button>
+                
+                <button type="submit" id="sign-in-button">Sign In</button>
 
                 <div class="social-media">
                     <button type="button">
                         <img src="images/facebook.png" alt="Facebook Logo">
-                        Sign In with Facebook
+                        <span id="facebook-text">Sign In with Facebook</span>
                     </button>
                     <button type="button">
                         <img src="images/google.png" alt="Gmail Logo">
-                        Sign In with Gmail
+                        <span id="gmail-text">Sign In with Gmail</span>
                     </button>
                 </div>
             </form>
@@ -63,6 +74,91 @@
     </footer>
 
     <script>
+        const titles = {
+            'usa': 'Sign In',
+            'spain': 'Iniciar sesión',
+            'japan': 'サインイン'
+        };
+        const labels = {
+            'usa': {
+                username: 'Username or Email',
+                password: 'Password',
+                remember: 'Remember me',
+                forgot: 'Forgot Password?',
+                facebook: 'Sign In with Facebook',
+                gmail: 'Sign In with Gmail'
+            },
+            'spain': {
+                username: 'Nombre de usuario o correo electrónico',
+                password: 'Contraseña',
+                remember: 'Recuérdame',
+                forgot: '¿Olvidaste tu contraseña?',
+                facebook: 'Iniciar sesión con Facebook',
+                gmail: 'Iniciar sesión con Gmail'
+            },
+            'japan': {
+                username: 'ユーザー名またはメールアドレス',
+                password: 'パスワード',
+                remember: '私を覚えて',
+                forgot: 'パスワードをお忘れですか？',
+                facebook: 'Facebookでサインイン',
+                gmail: 'Gmailでサインイン'
+            }
+        };
+        const navLinks = {
+            'usa': {
+                about: 'About',
+                explore: 'Explore',
+                destination: 'Destination',
+                contact: 'Contact'
+            },
+            'spain': {
+                about: 'Acerca de',
+                explore: 'Explorar',
+                destination: 'Destino',
+                contact: 'Contacto'
+            },
+            'japan': {
+                about: '私たちについて',
+                explore: '探検',
+                destination: '目的地',
+                contact: '連絡先'
+            }
+        };
+        const flags = {
+            'usa': 'images/usa.jpg',
+            'spain': 'images/Spain_flag_300.png',
+            'japan': 'images/japan.png'
+        };
+        const languages = ['usa', 'spain', 'japan'];
+        let currentLanguage = localStorage.getItem('selectedLanguage') || 'usa';
+
+        function setLanguage(language) {
+            document.getElementById('sign-in-title').textContent = titles[language];
+            document.getElementById('username-label').textContent = labels[language].username;
+            document.getElementById('password-label').textContent = labels[language].password;
+            document.getElementById('remember-label').textContent = labels[language].remember;
+            document.getElementById('forgot-password-link').textContent = labels[language].forgot;
+            document.getElementById('facebook-text').textContent = labels[language].facebook;
+            document.getElementById('gmail-text').textContent = labels[language].gmail;
+            
+            // Update navigation links
+            document.getElementById('about-link').textContent = navLinks[language].about;
+            document.getElementById('explore-link').textContent = navLinks[language].explore;
+            document.getElementById('destination-link').textContent = navLinks[language].destination;
+            document.getElementById('contact-link').textContent = navLinks[language].contact;
+
+            document.getElementById('language-flag').src = flags[language];
+        }
+
+        setLanguage(currentLanguage);
+
+        document.getElementById('language-flag').addEventListener('click', () => {
+            currentLanguage = languages[(languages.indexOf(currentLanguage) + 1) % languages.length];
+            localStorage.setItem('selectedLanguage', currentLanguage);
+            setLanguage(currentLanguage);
+        });
+
         function handleSignIn(event) {
             event.preventDefault();
 

@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .flag {
+            width: 30px;
+            cursor: pointer;
+            margin-right: 10px; /* Space between flag and username */
+            margin-left: -5px; /* Move flag slightly to the left */
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -13,44 +21,47 @@
         </div>
         <nav>
             <ul>
-                <li><a href="about.html">About</a></li>
-                <li><a href="explore.html">Explore</a></li>
-                <li><a href="destination.html">Destination</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="about.html" class="nav-link" id="about-link">About</a></li>
+                <li><a href="explore.html" class="nav-link" id="explore-link">Explore</a></li>
+                <li><a href="destination.html" class="nav-link" id="destination-link">Destination</a></li>
+                <li><a href="contact.html" class="nav-link" id="contact-link">Contact</a></li>
             </ul>
         </nav>
         <div class="auth">
-            <a href="sign-in.html" class="btn-sign-in">Sign In</a>
-            <a href="sign-up.html" class="btn-sign-up">Sign Up</a>
+            <img src="images/usa.jpg" id="language-flag" class="flag" alt="Language Flag">
+            <span id="username-display"></span>
+            <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
+            <a href="sign-in.html" class="btn-sign-in" id="sign-in-link">Sign In</a>
+            <a href="sign-up.html" class="btn-sign-up" id="sign-up-link">Sign Up</a>
         </div>
     </header>
 
     <main>
-        <section id="sign-up">
-            <h1>Sign Up</h1>
+        <section id="sign-up" class="form-container">
+            <h1 id="sign-up-title">Sign Up</h1>
             <form id="signup-form" onsubmit="return handleSignUp(event)">
-                <label for="username">Username</label>
+                <label for="username" id="username-label">Username</label>
                 <input type="text" id="username" name="username" required>
 
-                <label for="username-email">Email</label>
+                <label for="username-email" id="username-email-label">Email</label>
                 <input type="email" id="username-email" name="username-email" required>
 
-                <label for="password">Password</label>
+                <label for="password" id="password-label">Password</label>
                 <input type="password" id="password" name="password" required>
 
-                <label for="confirm-password">Confirm Password</label>
+                <label for="confirm-password" id="confirm-password-label">Confirm Password</label>
                 <input type="password" id="confirm-password" name="confirm-password" required>
 
-                <button type="submit">Sign Up</button>
+                <button type="submit" id="sign-up-button">Sign Up</button>
 
                 <div class="social-media">
                     <button type="button" id="facebook-signup">
                         <img src="images/facebook.png" alt="Facebook Logo">
-                        Sign Up with Facebook
+                        <span id="facebook-text">Sign Up with Facebook</span>
                     </button>
                     <button type="button" id="gmail-signup">
                         <img src="images/google.png" alt="Gmail Logo">
-                        Sign Up with Gmail
+                        <span id="gmail-text">Sign Up with Gmail</span>
                     </button>
                 </div>
             </form>
@@ -62,6 +73,83 @@
     </footer>
 
     <script>
+        const titles = {
+            'usa': 'Sign Up',
+            'spain': 'Regístrate',
+            'japan': 'サインアップ'
+        };
+        const labels = {
+            'usa': {
+                username: 'Username',
+                email: 'Email',
+                password: 'Password',
+                confirm: 'Confirm Password',
+            },
+            'spain': {
+                username: 'Nombre de usuario',
+                email: 'Correo electrónico',
+                password: 'Contraseña',
+                confirm: 'Confirmar contraseña',
+            },
+            'japan': {
+                username: 'ユーザー名',
+                email: 'メールアドレス',
+                password: 'パスワード',
+                confirm: 'パスワードを確認'
+            }
+        };
+        const navLinks = {
+            'usa': {
+                about: 'About',
+                explore: 'Explore',
+                destination: 'Destination',
+                contact: 'Contact'
+            },
+            'spain': {
+                about: 'Acerca de',
+                explore: 'Explorar',
+                destination: 'Destino',
+                contact: 'Contacto'
+            },
+            'japan': {
+                about: '私たちについて',
+                explore: '探検',
+                destination: '目的地',
+                contact: '連絡先'
+            }
+        };
+        const flags = {
+            'usa': 'images/usa.jpg',
+            'spain': 'images/Spain_flag_300.png',
+            'japan': 'images/japan.png'
+        };
+        const languages = ['usa', 'spain', 'japan'];
+        let currentLanguage = localStorage.getItem('selectedLanguage') || 'usa';
+
+        function setLanguage(language) {
+            document.getElementById('sign-up-title').textContent = titles[language];
+            document.getElementById('username-label').textContent = labels[language].username;
+            document.getElementById('username-email-label').textContent = labels[language].email;
+            document.getElementById('password-label').textContent = labels[language].password;
+            document.getElementById('confirm-password-label').textContent = labels[language].confirm;
+
+            // Update navigation links
+            document.getElementById('about-link').textContent = navLinks[language].about;
+            document.getElementById('explore-link').textContent = navLinks[language].explore;
+            document.getElementById('destination-link').textContent = navLinks[language].destination;
+            document.getElementById('contact-link').textContent = navLinks[language].contact;
+
+            document.getElementById('language-flag').src = flags[language];
+        }
+
+        setLanguage(currentLanguage);
+
+        document.getElementById('language-flag').addEventListener('click', () => {
+            currentLanguage = languages[(languages.indexOf(currentLanguage) + 1) % languages.length];
+            localStorage.setItem('selectedLanguage', currentLanguage);
+            setLanguage(currentLanguage);
+        });
+
         function handleSignUp(event) {
             event.preventDefault();
 
