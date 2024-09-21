@@ -44,7 +44,7 @@
         /* Hidden description */
         .gallery-caption {
             position: absolute;
-            bottom: 0;
+            bottom: 40px; /* Adjusted to make space for the button */
             left: 0;
             right: 0;
             background-color: rgba(0, 0, 0, 0.7); /* Dark background */
@@ -61,12 +61,31 @@
             opacity: 1; /* Show caption on hover */
         }
 
+        .book-now-btn {
+            position: absolute;
+            bottom: 10px; /* Adjust position */
+            left: 50%;
+            transform: translateX(-50%); /* Center horizontally */
+            background-color: #f39c12; /* Button color */
+            color: white;
+            padding: 8px 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .book-now-btn:hover {
+            background-color: #e67e22; /* Darker shade on hover */
+        }
+
         .flag {
             width: 30px;
             cursor: pointer;
             margin-right: 10px; /* Space between flag and username */
             margin-left: -5px; /* Move flag slightly to the left */
         }
+
         .flag:hover {
             transform: scale(1.4);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -101,45 +120,58 @@
             <h1 id="explore-title">Select Places To Visit</h1>
             <div class="explore-content">
                 <div id="gallery">
+                    <!-- 1st Gallery Item (Thailand) -->
                     <div class="gallery-item">
                         <a href="thailand.html">
                             <img src="images/tai1.jpg" alt="Thailand">
                             <div class="gallery-caption">
                                 Thailand - Known for its tropical beaches, opulent royal palaces, ancient ruins, and temples.
                             </div>
+                            <a href="thailand.html" class="book-now-btn">Book Now</a> <!-- Redirect to thailand.html -->
                         </a>
                     </div>
-                    
+
+                    <!-- 2nd Gallery Item (Japan) -->
                     <div class="gallery-item">
                         <a href="japan.html">
                             <img src="images/mt.fuji.png" alt="Japan Mt. Fuji">
                             <div class="gallery-caption">
                                 Japan - Mt. Fuji is an iconic volcano and one of Japan's most popular attractions.
                             </div>
+                            <a href="japan.html" class="book-now-btn">Book Now</a> <!-- Redirect to japan.html -->
                         </a>
                     </div>
+
+                    <!-- 3rd Gallery Item (Singapore) -->
                     <div class="gallery-item">
                         <a href="singapore.html">
                             <img src="images/singapore.jpg" alt="Singapore">
                             <div class="gallery-caption">
                                 Singapore - Visit the famous Marina Bay Sands, a symbol of Singapore's luxury and innovation.
                             </div>
+                            <a href="singapore.html" class="book-now-btn">Book Now</a> <!-- Redirect to singapore.html -->
                         </a>
                     </div>
+
+                    <!-- 4th Gallery Item (Paris) -->
                     <div class="gallery-item">
                         <a href="paris.html">
                             <img src="images/paris.webp" alt="Paris">
                             <div class="gallery-caption">
                                 Paris - The Eiffel Tower is an iconic structure symbolizing the romance and history of France.
                             </div>
+                            <a href="paris.html" class="book-now-btn">Book Now</a> <!-- Redirect to paris.html -->
                         </a>
                     </div>
+
+                    <!-- 5th Gallery Item (Hong Kong) -->
                     <div class="gallery-item">
                         <a href="hongkong.html">
                             <img src="images/hongkong.webp" alt="Hong Kong Disneyland">
                             <div class="gallery-caption">
                                 Hong Kong - Disneyland offers magical experiences for families, with world-class attractions.
                             </div>
+                            <a href="hongkong.html" class="book-now-btn">Book Now</a> <!-- Redirect to hongkong.html -->
                         </a>
                     </div>
                 </div>
