@@ -514,11 +514,11 @@ form button:active {
     border: none;
     border-radius: 15px; /* Rounded corners */
     padding: 12px;
-    font-size: 1.1em;
+    font-size: 0.9em;
     display: flex;
     align-items: center;
     gap: 10px;
-    margin: 8px;
+    margin: 12px;
     box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3);
     transition: background-color 0.3s, transform 0.2s;
 }
@@ -533,7 +533,7 @@ form button:active {
 }
 
 .social-media button:active {
-    background: rgba(0, 0, 0, 0.7);
+    background: rgb(255, 255, 255);
     transform: scale(0.95);
 }
 
@@ -635,7 +635,7 @@ footer p {
     align-items: center;
     width: 100%;
     max-width: 500px;
-    background: rgba(0, 0, 0, 0.8); /* Darker background for contrast */
+    background: rgba(235, 232, 232, 0.082); /* Darker background for contrast */
     border-radius: 20px; /* Rounded corners */
     padding: 40px; /* Increased padding for better spacing */
     box-shadow: 0 0 30px rgba(0, 255, 255, 0.5); /* More pronounced shadow for depth */
@@ -705,4 +705,57 @@ form button {
 
 .image-caption:hover .caption-text {
     opacity: 1; /* Show caption on hover */
+}
+.remember-forgot {
+    display: flex; /* Use flexbox for positioning */
+    justify-content: space-between; /* Space between elements */
+    align-items: center; /* Center vertically */
+    margin-top: 10px; /* Adjust top margin if needed */
+}
+
+.remember-checkbox {
+    margin-right: 5px; /* Space between checkbox and text */
+}
+
+.remember-checkbox {
+    width: 12px; /* Adjust width to make it smaller */
+    height: 12px; /* Adjust height to make it smaller */
+    cursor: pointer; /* Change cursor on hover */
+    transform: scale(0.75); /* Scale down the checkbox */
+}
+
+/* Adjust the link styling */
+.remember-forgot {
+    display: flex;
+    justify-content: space-between; /* Align items with space between */
+    align-items: center; /* Center vertically */
+}
+
+.remember-label {
+    display: flex;
+    align-items: flex-end; /* Align items to the bottom */
+    font-size: 14px; /* Match font size */
+}
+
+.remember-checkbox {
+    width: 12px; /* Size of the checkbox */
+    height: 12px; /* Size of the checkbox */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin-left: 5px; /* Adjust spacing as needed */
+    margin-bottom: 2px; /* Add margin to position lower */
+}
+
+/* Form Container Styles */
+.form-container {
+    background: rgba(179, 167, 167, 0.178); /* More transparent background */
+    border-radius: 50px; /* Rounded corners */
+    padding: 50px; /* Increased padding for a larger container */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition for transform and shadow */
+}
+
+/* Form Container Hover Effect */
+.form-container:hover {
+    
+    box-shadow: 0 8px 30px rgba(0, 255, 255, 0.5); /* More pronounced shadow */
 }
