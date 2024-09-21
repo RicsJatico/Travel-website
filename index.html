@@ -64,39 +64,39 @@
                 <div class="hero-content">
                     <h1 id="main-title">Discover Your Next Adventure</h1>
                     <div class="search-bar">
-                        <input type="text" placeholder="Search country and places to visit">
-                        <button type="button">Search</button>
+                        <input type="text" id="search-input" placeholder="Search country and places to visit">
+                        <button type="button" id="search-button">Search</button>
                     </div>
                 </div>
             </div>
         </section>
         <section class="gallery">
             <div class="gallery-container">
-                <a href="#">
+                <a href="explore.html">
                     <div class="image-caption">
                         <img src="images/tai1.jpg" alt="Adventure 1">
                         <span class="caption-text">Thailand</span>
                     </div>
                 </a>
-                <a href="#">
+                <a href="explore.html">
                     <div class="image-caption">
                         <img src="images/pic2.jpg" alt="Adventure 2">
                         <span class="caption-text">Paris</span>
                     </div>
                 </a>
-                <a href="#">
+                <a href="explore.html">
                     <div class="image-caption">
                         <img src="images/pic 3.jpg" alt="Adventure 3">
                         <span class="caption-text">Hollywood</span>
                     </div>
                 </a>
-                <a href="#">
+                <a href="explore.html">
                     <div class="image-caption">
                         <img src="images/pic 4.jpg" alt="Adventure 4">
                         <span class="caption-text">Spain</span>
                     </div>
                 </a>
-                <a href="#">
+                <a href="explore.html">
                     <div class="image-caption">
                         <img src="images/pic 5.jpg" alt="Adventure 5">
                         <span class="caption-text">Japan</span>
@@ -104,6 +104,7 @@
                 </a>
             </div>
         </section>
+        
     </main>
 
     <footer>
@@ -198,6 +199,37 @@
             localStorage.setItem('selectedLanguage', currentLanguage);
             setLanguage(currentLanguage);
         });
+
+        // Search functionality
+        document.getElementById('search-button').addEventListener('click', () => {
+            const searchInput = document.getElementById('search-input').value.toLowerCase();
+            let redirectUrl;
+
+            switch (searchInput) {
+                case 'thailand':
+                    redirectUrl = 'thailand.html';
+                    break;
+                case 'paris':
+                    redirectUrl = 'paris.html';
+                    break;
+                case 'singapore':
+                    redirectUrl = 'singapore.html';
+                    break;
+                case 'hongkong':
+                    redirectUrl = 'hongkong.html';
+                    break;
+                case 'japan':
+                    redirectUrl = 'japan.html';
+                    break;
+                default:
+                alert('Country or place not found. Please try again.');
+                    return; // Exit the function if no match is found
+            }
+
+            // Redirect to the appropriate page
+            window.location.href = redirectUrl;
+        });
     </script>
 </body>
 </html>
+
