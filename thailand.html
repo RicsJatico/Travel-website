@@ -18,6 +18,33 @@
             min-height: 100vh;
         }
 
+        .currency-selector {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(128, 116, 116, 0.452);
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 5px;
+            z-index: 100;
+            transition: transform 0.3s, box-shadow 0.3s;
+            color: white; 
+        }
+
+        .currency-selector select {
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 16px;
+            cursor: pointer;
+            color: rgb(3, 3, 3); 
+        }
+
+        .currency-selector:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.966);
+        }
+
         .envelope-container {
             position: relative;
             width: 600px;
@@ -144,7 +171,6 @@
             cursor: pointer;
             overflow: hidden;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            
             transition: transform 0.3s;
             color: white;
         }
@@ -160,7 +186,6 @@
             opacity: 0.5;
             border-radius: 10px;
             z-index: 0;
-        
             animation: glow 1.5s infinite alternate;
         }
 
@@ -168,17 +193,9 @@
             transform: scale(1.05);
         }
 
-        .regular {
-            border: 2px solid #ccc;
-        }
-
-        .premium {
-            border: 2px solid #ff4500;
-        }
-
-        .vip {
-            border: 2px solid #ffd700;
-        }
+        .regular { border: 2px solid #ccc; }
+        .premium { border: 2px solid #ff4500; }
+        .vip { border: 2px solid #ffd700; }
 
         .fare-value {
             position: absolute;
@@ -213,36 +230,6 @@
             50% { opacity: 0.7; }
             100% { opacity: 0.2; }
         }
-
-        @keyframes glowRegular {
-            0% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.7); }
-            50% { box-shadow: 0 0 15px rgba(255, 255, 255, 1); }
-            100% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.7); }
-        }
-
-        @keyframes glowPremium {
-            0% { box-shadow: 0 0 5px rgba(255, 0, 0, 0.7); }
-            50% { box-shadow: 0 0 15px rgba(255, 0, 0, 1); }
-            100% { box-shadow: 0 0 5px rgba(255, 0, 0, 0.7); }
-        }
-
-        @keyframes glowVIP {
-            0% { box-shadow: 0 0 5px rgba(255, 215, 0, 0.7); }
-            50% { box-shadow: 0 0 15px rgba(255, 215, 0, 1); }
-            100% { box-shadow: 0 0 5px rgba(255, 215, 0, 0.7); }
-        }
-
-        .package.regular:hover {
-            animation: glowRegular 1s infinite alternate;
-        }
-
-        .package.premium:hover {
-            animation: glowPremium 1s infinite alternate;
-        }
-
-        .package.vip:hover {
-            animation: glowVIP 1s infinite alternate;
-        }
     </style>
 </head>
 <body>
@@ -261,6 +248,15 @@
         </nav>
     </header>
 
+    <div class="currency-selector">
+        <label for="currency">Currency:</label>
+        <select id="currency" onchange="updatePrices()">
+            <option value="USD">USD</option>
+            <option value="PHP">PHP</option>
+            <option value="JPY">JPY</option>
+        </select>
+    </div>
+
     <main>
         <div class="envelope-container">
             <div class="envelope locked" id="envelope">
@@ -274,23 +270,23 @@
         </div>
 
         <div class="packages">
-            <div class="package regular" onclick="location.href='reservation.html';">
-                <div class="fare-value">$999</div>
+            <div class="package regular" onclick="redirectToReservation('regular')">
+                <div class="fare-value" data-base-price="999">$999</div>
                 <h3>Regular Package</h3>
                 <p>Enjoy a comfortable stay with guided tours and cultural experiences.</p>
-                <button class="book-now">Book Now</button>
+                <button class="book-now" onclick="redirectToReservation('regular')">Book Now</button>
             </div>
-            <div class="package premium" onclick="location.href='reservation.html';">
-                <div class="fare-value">$1499</div>
+            <div class="package premium" onclick="redirectToReservation('premium')">
+                <div class="fare-value" data-base-price="1499">$1499</div>
                 <h3>Premium Package</h3>
                 <p>Experience luxury accommodations and exclusive tours.</p>
-                <button class="book-now">Book Now</button>
+                <button class="book-now" onclick="redirectToReservation('premium')">Book Now</button>
             </div>
-            <div class="package vip" onclick="location.href='reservation.html';">
-                <div class="fare-value">$1999</div>
+            <div class="package vip" onclick="redirectToReservation('vip')">
+                <div class="fare-value" data-base-price="1999">$1999</div>
                 <h3>VIP Package</h3>
                 <p>Indulge in the ultimate Thailand experience with private tours and top-tier services.</p>
-                <button class="book-now">Book Now</button>
+                <button class="book-now" onclick="redirectToReservation('vip')">Book Now</button>
             </div>
         </div>
     </main>
@@ -308,7 +304,26 @@
             envelope.classList.toggle('locked');
             envelope.classList.toggle('open');
         });
+
+        function redirectToReservation(packageType) {
+            window.location.href = `reservation.html?origin=thailand&package=${packageType}`;
+        }
+
+        function updatePrices() {
+            const currency = document.getElementById('currency').value;
+            const packages = document.querySelectorAll('.package');
+            const conversionRates = {
+                USD: 1,
+                PHP: 56, // Example conversion rate
+                JPY: 110 // Example conversion rate
+            };
+
+            packages.forEach(packageElement => {
+                const basePrice = parseFloat(packageElement.querySelector('.fare-value').getAttribute('data-base-price'));
+                const convertedPrice = (basePrice * conversionRates[currency]).toFixed(2);
+                packageElement.querySelector('.fare-value').innerText = `${currency} ${convertedPrice}`;
+            });
+        }
     </script>
 </body>
 </html>
-

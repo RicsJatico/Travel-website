@@ -23,11 +23,15 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             border-radius: 10px;
             width: 50%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add transition for smooth effect */
+        }
+        .reservation-container:hover {
+            transform: scale(1.03); /* Slightly increase size on hover */
+            box-shadow: 0 8px 20px rgb(255, 1, 1); /* Enhance shadow on hover */
         }
         .reservation-container h2 {
             text-align: center; 
             margin-bottom: 20px;
-            border-radius: 10px;
         }
         .form-group {
             margin-bottom: 20px;
@@ -36,15 +40,18 @@
             display: block;
             margin-bottom: 5px;
         }
-        .form-group input {
-            width: 100%;
+        .form-group input, 
+        .form-group select {
+            width: 98%;
             padding: 10px;
-            border: 1px solid #383535cb;
             border-radius: 10px;
+            font-size: 16px;
+            background-color: rgba(196, 178, 178, 0.781);
+            color: #333; /* Set text color to match the date input */
         }
         .form-group button {
             display: block;
-            width: 100%;
+            width: 98%;
             padding: 10px;
             background-color: #28a745;
             color: white;
@@ -52,15 +59,16 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            font-size: 16px;
         }
         .form-group button:hover {
-            background-color: #218838;
+            background-color: #4b7a55c7;
         }
         /* Image slider styles */
         .slider-container {
             position: relative;
-            width: 500px;
-            height: 300px;
+            width: 700px;
+            height: 350px;
             overflow: hidden;
             margin: 0 auto 20px;
         }
@@ -101,6 +109,14 @@
         <!-- Reservation Form -->
         <form>
             <div class="form-group">
+                <label for="package">Selected Package:</label>
+                <select id="package" name="package" required>
+                    <option value="regular">Regular</option>
+                    <option value="premium">Premium</option>
+                    <option value="vip">VIP</option>
+                </select>
+            </div>
+            <div class="form-group">
                 <label for="travel-date">Select Date:</label>
                 <input type="date" id="travel-date" name="travel-date" required>
             </div>
@@ -115,13 +131,18 @@
     </div>
 
     <script>
-        
         const urlParams = new URLSearchParams(window.location.search);
         const origin = urlParams.get('origin');
+        const selectedPackage = urlParams.get('package'); // Get selected package from URL
+
+        // Lock the selected package in the form
+        if (selectedPackage) {
+            const packageSelect = document.getElementById('package');
+            packageSelect.value = selectedPackage; // Set the selected package
+            packageSelect.disabled = true; // Disable the dropdown
+        }
 
         let sliderImages = [];
-
-        
         if (origin === 'thailand') {
             sliderImages = ['images/t1.avif', 'images/t2.avif', 'images/t3.jpg', 'images/t4.avif', 'images/t5.avif'];
         } else if (origin === 'singapore') {
@@ -129,9 +150,9 @@
         } else if (origin === 'japan') {
             sliderImages = ['images/j1.avif', 'images/j2.avif', 'images/j3.avif', 'images/j4.avif', 'images/j5.avif'];
         } else if (origin === 'paris') {
-            sliderImages = ['images/p1.avif', 'images/p2.avif', 'images/p3.avif', 'images/p4.avif' , 'images/p5.avif'];
+            sliderImages = ['images/p1.avif', 'images/p2.avif', 'images/p3.avif', 'images/p4.avif', 'images/p5.avif'];
         } else if (origin === 'hongkong') {
-            sliderImages = ['images/h1.jpg', 'images/h2.jpg', 'images/h3.jpg', 'images/h3.jpg' , 'images/h3.jpg'];
+            sliderImages = ['images/h1.jpg', 'images/h2.jpg', 'images/h3.jpg', 'images/h4.jpg', 'images/h5.jpg'];
         } else {
             sliderImages = ['images/t1.avif', 'images/t2.avif', 'images/t3.jpg', 'images/t4.avif', 'images/t5.avif']; // Default images
         }

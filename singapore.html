@@ -18,6 +18,33 @@
             min-height: 100vh;
         }
 
+        .currency-selector {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(128, 116, 116, 0.452);
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 5px;
+            z-index: 100;
+            transition: transform 0.3s, box-shadow 0.3s;
+            color: white;
+        }
+
+        .currency-selector select {
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 16px;
+            cursor: pointer;
+            color: rgb(3, 3, 3);
+        }
+
+        .currency-selector:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.966);
+        }
+
         .envelope-container {
             position: relative;
             width: 600px;
@@ -168,17 +195,9 @@
             transform: scale(1.05);
         }
 
-        .regular {
-            border: 2px solid #ccc;
-        }
-
-        .premium {
-            border: 2px solid #ff4500;
-        }
-
-        .vip {
-            border: 2px solid #ffd700;
-        }
+        .regular { border: 2px solid #ccc; }
+        .premium { border: 2px solid #ff4500; }
+        .vip { border: 2px solid #ffd700; }
 
         .fare-value {
             position: absolute;
@@ -213,18 +232,6 @@
             50% { opacity: 0.7; }
             100% { opacity: 0.2; }
         }
-
-        .package.regular:hover {
-            animation: glow 1s infinite alternate;
-        }
-
-        .package.premium:hover {
-            animation: glow 1s infinite alternate;
-        }
-
-        .package.vip:hover {
-            animation: glow 1s infinite alternate;
-        }
     </style>
 </head>
 <body>
@@ -243,6 +250,15 @@
         </nav>
     </header>
 
+    <div class="currency-selector">
+        <label for="currency">Currency:</label>
+        <select id="currency" onchange="updatePrices()">
+            <option value="USD">USD</option>
+            <option value="PHP">PHP</option>
+            <option value="JPY">JPY</option>
+        </select>
+    </div>
+
     <main>
         <div class="envelope-container">
             <div class="envelope locked" id="envelope">
@@ -256,23 +272,23 @@
         </div>
 
         <div class="packages">
-            <div class="package regular" onclick="location.href='reservation.html?origin=singapore'">
-                <div class="fare-value">$899</div>
+            <div class="package regular" onclick="redirectToReservation('regular')">
+                <div class="fare-value" data-base-price="899">$899</div>
                 <h3>Regular Package</h3>
                 <p>Explore Singapore's iconic landmarks with guided city tours and local cuisine experiences.</p>
-                <button class="book-now" onclick="location.href='reservation.html?origin=singapore'">Book Now</button>
+                <button class="book-now" onclick="redirectToReservation('regular')">Book Now</button>
             </div>
-            <div class="package premium" onclick="location.href='reservation.html?origin=singapore'">
-                <div class="fare-value">$1299</div>
+            <div class="package premium" onclick="redirectToReservation('premium')">
+                <div class="fare-value" data-base-price="1299">$1299</div>
                 <h3>Premium Package</h3>
                 <p>Enjoy luxury accommodations and exclusive tours to the best attractions in Singapore.</p>
-                <button class="book-now" onclick="location.href='reservation.html?origin=singapore'">Book Now</button>
+                <button class="book-now" onclick="redirectToReservation('premium')">Book Now</button>
             </div>
-            <div class="package vip" onclick="location.href='reservation.html?origin=singapore'">
-                <div class="fare-value">$1799</div>
+            <div class="package vip" onclick="redirectToReservation('vip')">
+                <div class="fare-value" data-base-price="1799">$1799</div>
                 <h3>VIP Package</h3>
                 <p>Indulge in a bespoke experience with personal guides, gourmet dining, and VIP access to attractions.</p>
-                <button class="book-now" onclick="location.href='reservation.html?origin=singapore'">Book Now</button>
+                <button class="book-now" onclick="redirectToReservation('vip')">Book Now</button>
             </div>
         </div>
     </main>
@@ -290,6 +306,36 @@
             envelope.classList.toggle('locked');
             envelope.classList.toggle('open');
         });
+
+        function redirectToReservation(packageType) {
+            window.location.href = `reservation.html?origin=singapore&package=${packageType}`;
+        }
+
+        function updatePrices() {
+            const currency = document.getElementById('currency').value;
+            const prices = {
+                USD: {
+                    regular: 899,
+                    premium: 1299,
+                    vip: 1799
+                },
+                PHP: {
+                    regular: 45000,
+                    premium: 65000,
+                    vip: 90000
+                },
+                JPY: {
+                    regular: 120000,
+                    premium: 180000,
+                    vip: 240000
+                }
+            };
+
+            document.querySelectorAll('.fare-value').forEach((element) => {
+                const basePrice = element.dataset.basePrice;
+                element.textContent = `${prices[currency][element.parentElement.className.split(' ')[1]]} ${currency}`;
+            });
+        }
     </script>
 </body>
 </html>

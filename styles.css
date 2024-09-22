@@ -714,38 +714,37 @@ form button {
 }
 
 .remember-checkbox {
-    margin-right: 5px; /* Space between checkbox and text */
+    margin-right: 5px; 
 }
 
 .remember-checkbox {
-    width: 12px; /* Adjust width to make it smaller */
-    height: 12px; /* Adjust height to make it smaller */
-    cursor: pointer; /* Change cursor on hover */
-    transform: scale(0.75); /* Scale down the checkbox */
+    width: 12px; 
+    height: 12px;
+    cursor: pointer;
+    transform: scale(0.75);
 }
 
-/* Adjust the link styling */
+
 .remember-forgot {
     display: flex;
-    justify-content: space-between; /* Align items with space between */
-    align-items: center; /* Center vertically */
+    justify-content: space-between; 
+    align-items: center; 
 }
 
 .remember-label {
     display: flex;
-    align-items: flex-end; /* Align items to the bottom */
-    font-size: 14px; /* Match font size */
+    align-items: flex-end;
+    font-size: 14px; 
 }
 
 .remember-checkbox {
-    width: 12px; /* Size of the checkbox */
-    height: 12px; /* Size of the checkbox */
-    cursor: pointer; /* Pointer cursor on hover */
-    margin-left: 5px; /* Adjust spacing as needed */
-    margin-bottom: 2px; /* Add margin to position lower */
-}
+    width: 12px; 
+    height: 12px; 
+    cursor: pointer;
+    margin-left: 5px;
+    margin-bottom: 2px;
 
-/* Form Container Styles */
+}
 .form-container {
     background: rgba(179, 167, 167, 0.178); /* More transparent background */
     border-radius: 50px; /* Rounded corners */

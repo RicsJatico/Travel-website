@@ -119,6 +119,32 @@
             animation: fadeIn 2s infinite alternate;
             text-align: center;
         }
+        .currency-selector {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(128, 116, 116, 0.452);
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 5px;
+            z-index: 100;
+            transition: transform 0.3s, box-shadow 0.3s;
+            color: white;
+        }
+
+        .currency-selector select {
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 16px;
+            cursor: pointer;
+            color: rgb(3, 3, 3);
+        }
+
+        .currency-selector:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.966);
+        }
 
         @keyframes fadeIn {
             0% { opacity: 0; }
@@ -244,6 +270,15 @@
     </header>
 
     <main>
+        <div class="currency-selector">
+            <label for="currency">Select Currency:</label>
+            <select id="currency" onchange="updatePrices()">
+                <option value="USD">USD</option>
+                <option value="PHP">PHP</option>
+                <option value="EUR">EUR</option>
+            </select>
+        </div>
+
         <div class="envelope-container">
             <div class="envelope locked" id="envelope">
                 <div class="lock" id="lock">🔒</div>
@@ -256,23 +291,23 @@
         </div>
 
         <div class="packages">
-            <div class="package regular" onclick="location.href='reservation.html?origin=hongkong'">
-                <div class="fare-value">$799</div>
+            <div class="package regular" onclick="redirectToReservation('regular')">
+                <div class="fare-value" id="regular-price">$799</div>
                 <h3>Regular Package</h3>
                 <p>Enjoy a day of fun at Disneyland with access to all rides and attractions.</p>
-                <button class="book-now">Book Now</button>
+                <button class="book-now" onclick="redirectToReservation('regular')">Book Now</button>
             </div>
-            <div class="package premium" onclick="location.href='reservation.html?origin=hongkong'">
-                <div class="fare-value">$1199</div>
+            <div class="package premium" onclick="redirectToReservation('premium')">
+                <div class="fare-value" id="premium-price">$1199</div>
                 <h3>Premium Package</h3>
                 <p>Experience exclusive access to attractions and premium dining options.</p>
-                <button class="book-now">Book Now</button>
+                <button class="book-now" onclick="redirectToReservation('premium')">Book Now</button>
             </div>
-            <div class="package vip" onclick="location.href='reservation.html?origin=hongkong'">
-                <div class="fare-value">$1599</div>
+            <div class="package vip" onclick="redirectToReservation('vip')">
+                <div class="fare-value" id="vip-price">$1599</div>
                 <h3>VIP Package</h3>
                 <p>Get the ultimate experience with a private guide, exclusive rides, and fine dining.</p>
-                <button class="book-now">Book Now</button>
+                <button class="book-now" onclick="redirectToReservation('vip')">Book Now</button>
             </div>
         </div>
     </main>
@@ -290,6 +325,23 @@
             envelope.classList.toggle('locked');
             envelope.classList.toggle('open');
         });
+
+        function redirectToReservation(packageType) {
+            window.location.href = `reservation.html?origin=hongkong&package=${packageType}`;
+        }
+
+        function updatePrices() {
+            const currency = document.getElementById('currency').value;
+            const prices = {
+                'USD': [799, 1199, 1599],
+                'PHP': [40000, 60000, 80000],
+                'EUR': [700, 1100, 1500]
+            };
+
+            document.getElementById('regular-price').innerText = `${prices[currency][0]} ${currency}`;
+            document.getElementById('premium-price').innerText = `${prices[currency][1]} ${currency}`;
+            document.getElementById('vip-price').innerText = `${prices[currency][2]} ${currency}`;
+        }
     </script>
 </body>
 </html>
