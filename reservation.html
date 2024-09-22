@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f4f4;
+            min-height: 100vh;
+        }
+        .reservation-container {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            width: 50%;
+        }
+        .reservation-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-group button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .form-group button:hover {
+            background-color: #218838;
+        }
+        /* Image slider styles */
+        .slider-container {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            overflow: hidden;
+            margin: 0 auto 20px;
+        }
+        .slider-container img {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .prev {
+            left: 10px;
+        }
+        .next {
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="reservation-container">
+        <h2>Make a Reservation</h2>
+        
+        <!-- Image Slider -->
+        <div class="slider-container">
+            <img src="images/default1.jpg" alt="Image Slider" id="slider-image">
+            <button class="arrow prev" id="prevBtn">&lt;</button>
+            <button class="arrow next" id="nextBtn">&gt;</button>
+        </div>
+
+        <!-- Reservation Form -->
+        <form>
+            <div class="form-group">
+                <label for="travel-date">Select Date:</label>
+                <input type="date" id="travel-date" name="travel-date" required>
+            </div>
+            <div class="form-group">
+                <label for="travel-time">Select Time:</label>
+                <input type="time" id="travel-time" name="travel-time" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Confirm Reservation</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Get query parameter from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const origin = urlParams.get('origin');
+
+        let sliderImages = [];
+
+        // Set slider images based on origin
+        if (origin === 'thailand') {
+            sliderImages = ['images/t1.avif', 'images/t2.avif', 'images/t3.jpg', 'images/t4.avif', 'images/t5.avif'];
+        } else if (origin === 'singapore') {
+            sliderImages = ['images/s1.jpg', 'images/s2.avif', 'images/s3.avif', 'images/s4.avif', 'images/s5.avif'];
+        } else if (origin === 'japan') {
+            sliderImages = ['images/j1.avif', 'images/j2.avif', 'images/j3.avif', 'images/j4.avif', 'images/j5.avif'];
+        } else if (origin === 'paris') {
+            sliderImages = ['images/p1.avif', 'images/p2.avif', 'images/p3.avif', 'images/p4.avif' , 'images/p5.avif'];
+        } else if (origin === 'hongkong') {
+            sliderImages = ['images/h1.jpg', 'images/h2.jpg', 'images/h3.jpg', 'images/h3.jpg' , 'images/h3.jpg'];
+        } else {
+            sliderImages = ['images/t1.avif', 'images/t2.avif', 'images/t3.jpg', 'images/t4.avif', 'images/t5.avif']; // Default images
+        }
+
+        let currentIndex = 0;
+        const sliderImage = document.getElementById('slider-image');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function showImage(index) {
+            sliderImage.src = sliderImages[index];
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex === 0) ? sliderImages.length - 1 : currentIndex - 1;
+            showImage(currentIndex);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex === sliderImages.length - 1) ? 0 : currentIndex + 1;
+            showImage(currentIndex);
+        });
+
+        // Show the first image on load
+        showImage(currentIndex);
+    </script>
+</body>
+</html>

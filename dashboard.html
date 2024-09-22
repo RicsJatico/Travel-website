@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('images/bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+        }
+        header {
+            background: rgba(34, 34, 34, 0.9);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        .logo img {
+            height: 50px;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #fcfcfc;
+            transition: color 0.3s;
+        }
+        nav ul li a:hover {
+            color: #f44336;
+        }
+        .auth {
+            display: flex;
+            align-items: center;
+        }
+        .flag {
+            width: 20px;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+
+        .dashboard-container {
+            padding: 30px;
+            max-width: 800px;
+            margin: 20px auto;
+            background: rgba(50, 50, 50, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+        h1, h2, h3 {
+            text-align: center;
+        }
+
+        /* Transparent container with hover, shadow, and glow effect */
+        .glow-container {
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05); /* More transparent */
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+            position: relative;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            overflow: hidden;
+        }
+
+        .glow-container:hover {
+            box-shadow: 0 6px 25px rgba(0, 123, 255, 0.8); /* Stronger shadow and glow on hover */
+            transform: translateY(-10px);
+        }
+
+        /* Glowing animation inside the container */
+        .glow-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(0, 123, 255, 0.3), transparent 70%);
+            animation: glowing 3s infinite ease-in-out;
+            z-index: 0;
+            opacity: 0.7;
+        }
+
+        .glow-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 123, 255, 0.5), 0 0 50px rgba(0, 123, 255, 0.3);
+            z-index: 1;
+            pointer-events: none;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .glow-container:hover::after {
+            box-shadow: 0 0 20px rgba(193, 199, 206, 0.7), 0 0 70px rgba(0, 123, 255, 0.5); /* Stronger glow on hover */
+        }
+
+        @keyframes glowing {
+            0% {
+                transform: scale(1);
+                filter: blur(5px);
+            }
+            50% {
+                transform: scale(1.05);
+                filter: blur(15px);
+            }
+            100% {
+                transform: scale(1);
+                filter: blur(5px);
+            }
+        }
+
+        .glow-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .user-info {
+            padding: 20px;
+            border-bottom: 1px solid #444;
+        }
+
+        .package-section {
+            margin: 20px 0;
+        }
+
+        .package {
+            margin: 10px 0;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            transition: background 0.3s, box-shadow 0.3s;
+            box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1); /* Slight shadow */
+        }
+
+        .package:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.5); /* Shadow on hover */
+        }
+
+        .graph {
+            height: 200px;
+            margin-top: 20px;
+            background: rgba(0, 255, 127, 0.1);
+            border: 1px solid rgb(185, 185, 196);
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .graph .bar {
+            background: rgb(227, 227, 231);
+            height: 100%;
+            position: absolute;
+            bottom: 0;
+            transition: height 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html"><img src="images/Travel 1.png" alt="Logo"></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="explore.html">Explore</a></li>
+                <li><a href="destination.html">Destination</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="auth">
+            <img src="images/usa.jpg" id="language-flag" class="flag" alt="Language Flag">
+            <span id="username-display"></span>
+            <a href="#" id="logout-button">Logout</a>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <div class="user-info">
+            <h2>Welcome back, <span id="username-display"></span>!</h2>
+            <p>Your account details and package deals are listed below.</p>
+        </div>
+
+        <div class="glow-container">
+            <div class="glow-content">
+                <h3>Your Balance</h3>
+                <p>Balance: $1,250.00</p>
+                <p>Pending Transactions: $200.00</p>
+            </div>
+        </div>
+
+        <div class="glow-container">
+            <div class="glow-content">
+                <h3>Your Package Deals</h3>
+                <div class="package">
+                    <strong>Thailand Package</strong>
+                    <p>Enjoy a wonderful experience in Thailand! Includes hotel, meals, and tours.</p>
+                    <button>View Details</button>
+                </div>
+                <div class="package">
+                    <strong>Paris Package</strong>
+                    <p>Experience the romance of Paris with this exclusive deal!</p>
+                    <button>View Details</button>
+                </div>
+                <div class="package">
+                    <strong>Singapore Package</strong>
+                    <p>Discover the wonders of Singapore with this exciting package.</p>
+                    <button>View Details</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="graph">
+            <h3>Travel Trends This Month</h3>
+            <div class="bar" style="width: 70%; height: 60%;"></div> <!-- Example data -->
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Tourism Services. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Check for logged in user
+        const username = localStorage.getItem('username');
+        document.getElementById('username-display').textContent = username || 'Guest';
+
+        // Hide/show buttons based on login status
+        if (username) {
+            document.getElementById('sign-in-link').style.display = 'none';
+            document.getElementById('sign-up-link').style.display = 'none';
+            document.getElementById('logout-button').style.display = 'inline';
+        } else {
+            document.getElementById('logout-button').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
