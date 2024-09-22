@@ -13,20 +13,21 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: #f4f4f4;
+            background-color: #887e7eea;
             min-height: 100vh;
         }
         .reservation-container {
             margin-top: 50px;
             padding: 20px;
-            background-color: white;
+            background-color: rgba(173, 173, 173, 0.877);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             border-radius: 10px;
             width: 50%;
         }
         .reservation-container h2 {
-            text-align: center;
+            text-align: center; 
             margin-bottom: 20px;
+            border-radius: 10px;
         }
         .form-group {
             margin-bottom: 20px;
@@ -38,8 +39,8 @@
         .form-group input {
             width: 100%;
             padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            border: 1px solid #383535cb;
+            border-radius: 10px;
         }
         .form-group button {
             display: block;
@@ -58,8 +59,8 @@
         /* Image slider styles */
         .slider-container {
             position: relative;
-            width: 300px;
-            height: 200px;
+            width: 500px;
+            height: 300px;
             overflow: hidden;
             margin: 0 auto 20px;
         }
@@ -79,10 +80,10 @@
             cursor: pointer;
         }
         .prev {
-            left: 10px;
+            left: 5px;
         }
         .next {
-            right: 10px;
+            right: 5px;
         }
     </style>
 </head>
@@ -114,13 +115,13 @@
     </div>
 
     <script>
-        // Get query parameter from URL
+        
         const urlParams = new URLSearchParams(window.location.search);
         const origin = urlParams.get('origin');
 
         let sliderImages = [];
 
-        // Set slider images based on origin
+        
         if (origin === 'thailand') {
             sliderImages = ['images/t1.avif', 'images/t2.avif', 'images/t3.jpg', 'images/t4.avif', 'images/t5.avif'];
         } else if (origin === 'singapore') {
