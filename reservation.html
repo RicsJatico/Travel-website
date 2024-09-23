@@ -132,38 +132,46 @@
         const origin = urlParams.get('origin') || 'default';
         const selectedPackage = urlParams.get('package');
 
-        // Package details including price and travel time based on origin
         const packageDetails = {
             thailand: {
-                regular: { price: "$999", time: "10:00 AM" },
-                premium: { price: "$1499", time: "12:00 PM" },
-                vip: { price: "$1999", time: "2:00 PM" }
+                regular: { price: "$999" },
+                premium: { price: "$1499" },
+                vip: { price: "$1999" }
             },
             singapore: {
-                regular: { price: "$899", time: "10:00 AM" },
-                premium: { price: "$1299", time: "12:00 PM" },
-                vip: { price: "$1799", time: "2:00 PM" }
+                regular: { price: "$899" },
+                premium: { price: "$1299" },
+                vip: { price: "$1799" }
             },
             japan: {
-                regular: { price: "$999", time: "10:00 AM" },
-                premium: { price: "$1499", time: "12:00 PM" },
-                vip: { price: "$1999", time: "2:00 PM" }
+                regular: { price: "$999" },
+                premium: { price: "$1499" },
+                vip: { price: "$1999" }
             },
             paris: {
-                regular: { price: "$999", time: "10:00 AM" },
-                premium: { price: "$1499", time: "12:00 PM" },
-                vip: { price: "$1999", time: "2:00 PM" }
+                regular: { price: "$999" },
+                premium: { price: "$1499" },
+                vip: { price: "$1999" }
             },
             hongkong: {
-                regular: { price: "$799", time: "10:00 AM" },
-                premium: { price: "$1199", time: "12:00 PM" },
-                vip: { price: "$1599", time: "2:00 PM" }
+                regular: { price: "$799" },
+                premium: { price: "$1199" },
+                vip: { price: "$1599" }
             },
             default: {
-                regular: { price: "$999", time: "10:00 AM" },
-                premium: { price: "$1499", time: "12:00 PM" },
-                vip: { price: "$1999", time: "2:00 PM" }
+                regular: { price: "$999" },
+                premium: { price: "$1499" },
+                vip: { price: "$1999" }
             }
+        };
+
+        const sliderImages = {
+            thailand: ['images/t1.avif', 'images/t2.avif', 'images/t3.jpg', 'images/t4.avif', 'images/t5.avif'],
+            singapore: ['images/s1.jpg', 'images/s2.avif', 'images/s3.avif', 'images/s4.avif', 'images/s5.avif'],
+            japan: ['images/j1.avif', 'images/j2.avif', 'images/j3.avif', 'images/j4.avif', 'images/j5.avif'],
+            paris: ['images/p1.avif', 'images/p2.avif', 'images/p3.avif', 'images/p4.avif', 'images/p5.avif'],
+            hongkong: ['images/h1.jpg', 'images/h2.jpg', 'images/h3.jpg', 'images/h4.jpg', 'images/h5.jpg'],
+            default: ['images/t1.avif', 'images/t2.avif', 'images/t3.jpg', 'images/t4.avif', 'images/t5.avif']
         };
 
         const packageSelect = document.getElementById('package');
@@ -178,15 +186,6 @@
         packageSelect.addEventListener('change', function() {
             priceInput.value = packageDetails[origin][this.value]?.price || "N/A";
         });
-
-        const sliderImages = {
-            thailand: ['images/t1.avif', 'images/t2.avif', 'images/t3.jpg', 'images/t4.avif', 'images/t5.avif'],
-            singapore: ['images/s1.jpg', 'images/s2.avif', 'images/s3.avif', 'images/s4.avif', 'images/s5.avif'],
-            japan: ['images/j1.avif', 'images/j2.avif', 'images/j3.avif', 'images/j4.avif', 'images/j5.avif'],
-            paris: ['images/p1.avif', 'images/p2.avif', 'images/p3.avif', 'images/p4.avif', 'images/p5.avif'],
-            hongkong: ['images/h1.jpg', 'images/h2.jpg', 'images/h3.jpg', 'images/h4.jpg', 'images/h5.jpg'],
-            default: ['images/t1.avif', 'images/t2.avif', 'images/t3.jpg', 'images/t4.avif', 'images/t5.avif']
-        };
 
         const currentImages = sliderImages[origin] || sliderImages.default;
         let currentIndex = 0;
@@ -208,16 +207,28 @@
             showImage(currentIndex);
         });
 
+        document.addEventListener('DOMContentLoaded', () => {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('travel-date').setAttribute('min', today);
+        });
+
         document.getElementById('reservation-form').addEventListener('submit', function(event) {
             if (!this.checkValidity()) {
                 event.preventDefault();
                 alert("Please fill out all fields correctly.");
             } else {
-                event.preventDefault();
                 const travelDate = document.getElementById('travel-date').value;
                 const travelTime = document.getElementById('travel-time').value;
                 const packagePrice = priceInput.value;
-                window.location.href = `billing.html?package=${selectedPackage}&price=${packagePrice}&date=${travelDate}&time=${travelTime}`;
+                const confirmation = confirm(`Are you sure you want to reserve for ${travelDate} at ${travelTime} for ${packagePrice}?`);
+                
+                if (confirmation) {
+                    event.preventDefault(); // Prevents redirect if "Cancel" is clicked
+                    window.location.href = `billing.html?package=${selectedPackage}&price=${packagePrice}&date=${travelDate}&time=${travelTime}`;
+                } else {
+                    
+                    event.preventDefault(); // Prevents redirect if "Cancel" is clicked
+                }
             }
         });
 

@@ -25,12 +25,6 @@
             box-shadow: 0 4px 10px rgba(4, 196, 221, 0.856);
             border-radius: 10px;
             width: 50%;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-        }
-        .billing-container:hover {
-            transform: scale(1.03);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            background-color: rgba(170, 158, 158, 0.8);
         }
         h2 {
             text-align: center; 
@@ -54,7 +48,6 @@
             cursor: pointer;
             text-align: center;
             font-size: 16px;
-            transition: background-color 0.3s ease;
         }
         .book-now:hover {
             background-color: #218838;
@@ -82,32 +75,60 @@
     </div>
 
     <script>
+        // Set initial account balance to $5000
+        localStorage.setItem('accountBalance', 5000);
+
+        // Check if the user is logged in
+        const userId = localStorage.getItem('userId');
+        const username = localStorage.getItem('username');
+        let accountBalance = parseFloat(localStorage.getItem('accountBalance')) || 0; // Default balance
+
+        if (!userId || !username) {
+            alert("You must be logged in to proceed.");
+            window.location.href = 'sign-in.html'; // Redirect to login if not logged in
+        }
+
         // Get parameters from URL
         const urlParams = new URLSearchParams(window.location.search);
         const packageName = urlParams.get('package');
         const travelDate = urlParams.get('date');
-        const travelTime = urlParams.get('time'); // Added to get travel time
-        const accountBalance = "$200"; // Example balance, adjust as needed
+        const travelTime = urlParams.get('time');
 
         // Define package details
         const packageDetails = {
-            regular: { price: "$999", time: "10:00 AM" },
-            premium: { price: "$1499", time: "12:00 PM" },
-            vip: { price: "$1999", time: "2:00 PM" }
+            regular: { price: 999, time: "10:00 AM" },
+            premium: { price: 1499, time: "12:00 PM" },
+            vip: { price: 1999, time: "2:00 PM" }
         };
 
         // Set package details
         const selectedPackage = packageDetails[packageName.toLowerCase()];
         document.getElementById('package-name').textContent = packageName.charAt(0).toUpperCase() + packageName.slice(1);
-        document.getElementById('package-price').textContent = selectedPackage.price;
+        document.getElementById('package-price').textContent = "$" + selectedPackage.price;
         document.getElementById('travel-date').textContent = travelDate;
-        document.getElementById('travel-time').textContent = travelTime; // Updated to show selected travel time
-        document.getElementById('account-balance').textContent = accountBalance;
+        document.getElementById('travel-time').textContent = travelTime;
+        document.getElementById('account-balance').textContent = "$" + accountBalance.toFixed(2);
 
         function confirmBooking() {
-            // Logic to confirm the booking
-            alert('Booking confirmed! Your total is ' + selectedPackage.price);
-            // Here you can add further actions, like redirecting or storing data
+            if (selectedPackage.price > accountBalance) {
+                alert('Insufficient balance! Please top up your account to book this package.');
+                return;
+            }
+
+            const confirmation = confirm('Are you sure you want to book this package?');
+            if (confirmation) {
+                // Deduct the package price from the account balance
+                accountBalance -= selectedPackage.price;
+
+                // Update local storage
+                localStorage.setItem('accountBalance', accountBalance);
+
+                // Update the displayed balance
+                document.getElementById('account-balance').textContent = "$" + accountBalance.toFixed(2);
+
+                alert('Booking confirmed! Your total is $' + selectedPackage.price);
+                // Further actions can be added here
+            }
         }
     </script>
 </body>
