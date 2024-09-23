@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing Process</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+            background-image: url('images/bg.jpg');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+        }
+        .billing-container {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: rgba(180, 174, 174, 0.9);
+            box-shadow: 0 4px 10px rgba(4, 196, 221, 0.856);
+            border-radius: 10px;
+            width: 50%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+        .billing-container:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            background-color: rgba(170, 158, 158, 0.8);
+        }
+        h2 {
+            text-align: center; 
+            margin-bottom: 20px;
+        }
+        .package-info, .balance-info {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #b8abab;
+            border-radius: 5px;
+            background-color: #f0e6e6f1;
+        }
+        .book-now {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .book-now:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="billing-container">
+        <h2>Billing Process</h2>
+
+        <div class="package-info">
+            <h3>Selected Package</h3>
+            <p><strong>Package:</strong> <span id="package-name"></span></p>
+            <p><strong>Price:</strong> <span id="package-price"></span></p>
+            <p><strong>Travel Date:</strong> <span id="travel-date"></span></p>
+            <p><strong>Travel Time:</strong> <span id="travel-time"></span></p>
+        </div>
+
+        <div class="balance-info">
+            <h3>Account Balance</h3>
+            <p><strong>Your Current Balance:</strong> <span id="account-balance"></span></p>
+        </div>
+
+        <button class="book-now" onclick="confirmBooking()">Book Now</button>
+    </div>
+
+    <script>
+        // Get parameters from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const packageName = urlParams.get('package');
+        const travelDate = urlParams.get('date');
+        const travelTime = urlParams.get('time'); // Added to get travel time
+        const accountBalance = "$200"; // Example balance, adjust as needed
+
+        // Define package details
+        const packageDetails = {
+            regular: { price: "$999", time: "10:00 AM" },
+            premium: { price: "$1499", time: "12:00 PM" },
+            vip: { price: "$1999", time: "2:00 PM" }
+        };
+
+        // Set package details
+        const selectedPackage = packageDetails[packageName.toLowerCase()];
+        document.getElementById('package-name').textContent = packageName.charAt(0).toUpperCase() + packageName.slice(1);
+        document.getElementById('package-price').textContent = selectedPackage.price;
+        document.getElementById('travel-date').textContent = travelDate;
+        document.getElementById('travel-time').textContent = travelTime; // Updated to show selected travel time
+        document.getElementById('account-balance').textContent = accountBalance;
+
+        function confirmBooking() {
+            // Logic to confirm the booking
+            alert('Booking confirmed! Your total is ' + selectedPackage.price);
+            // Here you can add further actions, like redirecting or storing data
+        }
+    </script>
+</body>
+</html>

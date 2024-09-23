@@ -23,11 +23,11 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             border-radius: 10px;
             width: 50%;
-            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add transition for smooth effect */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .reservation-container:hover {
-            transform: scale(1.03); /* Slightly increase size on hover */
-            box-shadow: 0 8px 20px rgb(255, 1, 1); /* Enhance shadow on hover */
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgb(255, 1, 1);
         }
         .reservation-container h2 {
             text-align: center; 
@@ -47,7 +47,7 @@
             border-radius: 10px;
             font-size: 16px;
             background-color: rgba(196, 178, 178, 0.781);
-            color: #333; /* Set text color to match the date input */
+            color: #333;
         }
         .form-group button {
             display: block;
@@ -64,7 +64,6 @@
         .form-group button:hover {
             background-color: #4b7a55c7;
         }
-        /* Image slider styles */
         .slider-container {
             position: relative;
             width: 700px;
@@ -87,27 +86,21 @@
             padding: 10px;
             cursor: pointer;
         }
-        .prev {
-            left: 5px;
-        }
-        .next {
-            right: 5px;
-        }
+        .prev { left: 5px; }
+        .next { right: 5px; }
     </style>
 </head>
 <body>
     <div class="reservation-container">
         <h2>Make a Reservation</h2>
         
-        <!-- Image Slider -->
         <div class="slider-container">
             <img src="images/default1.jpg" alt="Image Slider" id="slider-image">
             <button class="arrow prev" id="prevBtn">&lt;</button>
             <button class="arrow next" id="nextBtn">&gt;</button>
         </div>
 
-        <!-- Reservation Form -->
-        <form>
+        <form id="reservation-form">
             <div class="form-group">
                 <label for="package">Selected Package:</label>
                 <select id="package" name="package" required>
@@ -125,6 +118,10 @@
                 <input type="time" id="travel-time" name="travel-time" required>
             </div>
             <div class="form-group">
+                <label for="package-price">Package Price:</label>
+                <input type="text" id="package-price" name="package-price" readonly>
+            </div>
+            <div class="form-group">
                 <button type="submit">Confirm Reservation</button>
             </div>
         </form>
@@ -132,51 +129,98 @@
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        const origin = urlParams.get('origin');
-        const selectedPackage = urlParams.get('package'); // Get selected package from URL
+        const origin = urlParams.get('origin') || 'default';
+        const selectedPackage = urlParams.get('package');
 
-        // Lock the selected package in the form
+        // Package details including price and travel time based on origin
+        const packageDetails = {
+            thailand: {
+                regular: { price: "$999", time: "10:00 AM" },
+                premium: { price: "$1499", time: "12:00 PM" },
+                vip: { price: "$1999", time: "2:00 PM" }
+            },
+            singapore: {
+                regular: { price: "$899", time: "10:00 AM" },
+                premium: { price: "$1299", time: "12:00 PM" },
+                vip: { price: "$1799", time: "2:00 PM" }
+            },
+            japan: {
+                regular: { price: "$999", time: "10:00 AM" },
+                premium: { price: "$1499", time: "12:00 PM" },
+                vip: { price: "$1999", time: "2:00 PM" }
+            },
+            paris: {
+                regular: { price: "$999", time: "10:00 AM" },
+                premium: { price: "$1499", time: "12:00 PM" },
+                vip: { price: "$1999", time: "2:00 PM" }
+            },
+            hongkong: {
+                regular: { price: "$799", time: "10:00 AM" },
+                premium: { price: "$1199", time: "12:00 PM" },
+                vip: { price: "$1599", time: "2:00 PM" }
+            },
+            default: {
+                regular: { price: "$999", time: "10:00 AM" },
+                premium: { price: "$1499", time: "12:00 PM" },
+                vip: { price: "$1999", time: "2:00 PM" }
+            }
+        };
+
+        const packageSelect = document.getElementById('package');
+        const priceInput = document.getElementById('package-price');
+
         if (selectedPackage) {
-            const packageSelect = document.getElementById('package');
-            packageSelect.value = selectedPackage; // Set the selected package
-            packageSelect.disabled = true; // Disable the dropdown
+            packageSelect.value = selectedPackage;
+            packageSelect.disabled = true;
+            priceInput.value = packageDetails[origin][selectedPackage]?.price || "N/A";
         }
 
-        let sliderImages = [];
-        if (origin === 'thailand') {
-            sliderImages = ['images/t1.avif', 'images/t2.avif', 'images/t3.jpg', 'images/t4.avif', 'images/t5.avif'];
-        } else if (origin === 'singapore') {
-            sliderImages = ['images/s1.jpg', 'images/s2.avif', 'images/s3.avif', 'images/s4.avif', 'images/s5.avif'];
-        } else if (origin === 'japan') {
-            sliderImages = ['images/j1.avif', 'images/j2.avif', 'images/j3.avif', 'images/j4.avif', 'images/j5.avif'];
-        } else if (origin === 'paris') {
-            sliderImages = ['images/p1.avif', 'images/p2.avif', 'images/p3.avif', 'images/p4.avif', 'images/p5.avif'];
-        } else if (origin === 'hongkong') {
-            sliderImages = ['images/h1.jpg', 'images/h2.jpg', 'images/h3.jpg', 'images/h4.jpg', 'images/h5.jpg'];
-        } else {
-            sliderImages = ['images/t1.avif', 'images/t2.avif', 'images/t3.jpg', 'images/t4.avif', 'images/t5.avif']; // Default images
-        }
+        packageSelect.addEventListener('change', function() {
+            priceInput.value = packageDetails[origin][this.value]?.price || "N/A";
+        });
 
+        const sliderImages = {
+            thailand: ['images/t1.avif', 'images/t2.avif', 'images/t3.jpg', 'images/t4.avif', 'images/t5.avif'],
+            singapore: ['images/s1.jpg', 'images/s2.avif', 'images/s3.avif', 'images/s4.avif', 'images/s5.avif'],
+            japan: ['images/j1.avif', 'images/j2.avif', 'images/j3.avif', 'images/j4.avif', 'images/j5.avif'],
+            paris: ['images/p1.avif', 'images/p2.avif', 'images/p3.avif', 'images/p4.avif', 'images/p5.avif'],
+            hongkong: ['images/h1.jpg', 'images/h2.jpg', 'images/h3.jpg', 'images/h4.jpg', 'images/h5.jpg'],
+            default: ['images/t1.avif', 'images/t2.avif', 'images/t3.jpg', 'images/t4.avif', 'images/t5.avif']
+        };
+
+        const currentImages = sliderImages[origin] || sliderImages.default;
         let currentIndex = 0;
         const sliderImage = document.getElementById('slider-image');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
 
         function showImage(index) {
-            sliderImage.src = sliderImages[index];
+            sliderImage.src = currentImages[index];
         }
 
         prevBtn.addEventListener('click', () => {
-            currentIndex = (currentIndex === 0) ? sliderImages.length - 1 : currentIndex - 1;
+            currentIndex = (currentIndex === 0) ? currentImages.length - 1 : currentIndex - 1;
             showImage(currentIndex);
         });
 
         nextBtn.addEventListener('click', () => {
-            currentIndex = (currentIndex === sliderImages.length - 1) ? 0 : currentIndex + 1;
+            currentIndex = (currentIndex === currentImages.length - 1) ? 0 : currentIndex + 1;
             showImage(currentIndex);
         });
 
-        // Show the first image on load
+        document.getElementById('reservation-form').addEventListener('submit', function(event) {
+            if (!this.checkValidity()) {
+                event.preventDefault();
+                alert("Please fill out all fields correctly.");
+            } else {
+                event.preventDefault();
+                const travelDate = document.getElementById('travel-date').value;
+                const travelTime = document.getElementById('travel-time').value;
+                const packagePrice = priceInput.value;
+                window.location.href = `billing.html?package=${selectedPackage}&price=${packagePrice}&date=${travelDate}&time=${travelTime}`;
+            }
+        });
+
         showImage(currentIndex);
     </script>
 </body>
