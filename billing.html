@@ -24,7 +24,8 @@
             background-color: rgba(180, 174, 174, 0.9);
             box-shadow: 0 4px 10px rgba(4, 196, 221, 0.856);
             border-radius: 10px;
-            width: 50%;
+            width: 90%;
+            max-width: 600px;
         }
         h2 {
             text-align: center; 
@@ -37,20 +38,21 @@
             border-radius: 5px;
             background-color: #f0e6e6f1;
         }
-        .book-now {
+        .book-now, .logout, .dashboard-button {
             display: block;
             width: 100%;
             padding: 10px;
-            background-color: #28a745;
+            background-color: #28a745; /* Green for Book Now and Dashboard */
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             text-align: center;
             font-size: 16px;
+            margin-top: 10px; /* Adds space between buttons */
         }
-        .book-now:hover {
-            background-color: #218838;
+        .book-now:hover, .logout:hover, .dashboard-button:hover {
+            background-color: #218838; /* Darker green on hover */
         }
     </style>
 </head>
@@ -72,21 +74,30 @@
         </div>
 
         <button class="book-now" onclick="confirmBooking()">Book Now</button>
+        <button class="dashboard-button" onclick="goToDashboard()">Go To My Dashboard</button>
+        <button class="logout" onclick="logout()">Logout</button>
     </div>
 
     <script>
-        // Set initial account balance to $5000
-        localStorage.setItem('accountBalance', 5000);
+        // Function to initialize the account balance to $5000 if not set
+        function initializeBalance() {
+            if (!localStorage.getItem('accountBalance')) {
+                localStorage.setItem('accountBalance', 5000);
+            }
+        }
 
         // Check if the user is logged in
         const userId = localStorage.getItem('userId');
         const username = localStorage.getItem('username');
-        let accountBalance = parseFloat(localStorage.getItem('accountBalance')) || 0; // Default balance
 
         if (!userId || !username) {
             alert("You must be logged in to proceed.");
-            window.location.href = 'sign-in.html'; // Redirect to login if not logged in
+            window.location.href = 'sign-in.html';
+        } else {
+            initializeBalance(); // Initialize balance to $5000 if not already set
         }
+
+        let accountBalance = parseFloat(localStorage.getItem('accountBalance')) || 0;
 
         // Get parameters from URL
         const urlParams = new URLSearchParams(window.location.search);
@@ -102,14 +113,20 @@
         };
 
         // Set package details
-        const selectedPackage = packageDetails[packageName.toLowerCase()];
-        document.getElementById('package-name').textContent = packageName.charAt(0).toUpperCase() + packageName.slice(1);
-        document.getElementById('package-price').textContent = "$" + selectedPackage.price;
-        document.getElementById('travel-date').textContent = travelDate;
-        document.getElementById('travel-time').textContent = travelTime;
-        document.getElementById('account-balance').textContent = "$" + accountBalance.toFixed(2);
+        if (packageDetails[packageName.toLowerCase()]) {
+            const selectedPackage = packageDetails[packageName.toLowerCase()];
+            document.getElementById('package-name').textContent = packageName.charAt(0).toUpperCase() + packageName.slice(1);
+            document.getElementById('package-price').textContent = "$" + selectedPackage.price;
+            document.getElementById('travel-date').textContent = travelDate;
+            document.getElementById('travel-time').textContent = travelTime;
+            document.getElementById('account-balance').textContent = "$" + accountBalance.toFixed(2);
+        } else {
+            alert('Invalid package selected.');
+            window.location.href = 'explore.html';
+        }
 
         function confirmBooking() {
+            const selectedPackage = packageDetails[packageName.toLowerCase()];
             if (selectedPackage.price > accountBalance) {
                 alert('Insufficient balance! Please top up your account to book this package.');
                 return;
@@ -120,15 +137,42 @@
                 // Deduct the package price from the account balance
                 accountBalance -= selectedPackage.price;
 
-                // Update local storage
+                // Update local storage with the new balance
                 localStorage.setItem('accountBalance', accountBalance);
-
+                
                 // Update the displayed balance
                 document.getElementById('account-balance').textContent = "$" + accountBalance.toFixed(2);
 
+                // Create a package object to store in local storage
+                const bookedPackage = {
+                    name: packageName.charAt(0).toUpperCase() + packageName.slice(1),
+                    price: selectedPackage.price,
+                    travelDate: travelDate,
+                    travelTime: travelTime
+                };
+
+                // Store the booked package details in local storage
+                const bookedPackages = JSON.parse(localStorage.getItem(`${username}_bookedPackages`) || '[]');
+                bookedPackages.push(bookedPackage);
+                localStorage.setItem(`${username}_bookedPackages`, JSON.stringify(bookedPackages));
+
                 alert('Booking confirmed! Your total is $' + selectedPackage.price);
-                // Further actions can be added here
             }
+        }
+
+        // Logout functionality
+        function logout() {
+            localStorage.removeItem('userId');
+            localStorage.removeItem('username');
+            localStorage.removeItem('accountBalance'); // Clear the balance on logout
+            localStorage.setItem('accountBalance', 5000); // Reset balance to $5000 on logout
+            alert("You have logged out. Your balance will be reset next time you log in.");
+            window.location.href = 'sign-in.html'; // Redirect to sign-in page
+        }
+
+        // Function to go to the dashboard page
+        function goToDashboard() {
+            window.location.href = 'dashboard.html'; // Redirect to dashboard page
         }
     </script>
 </body>

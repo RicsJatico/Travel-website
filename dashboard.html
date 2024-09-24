@@ -51,7 +51,6 @@
             margin-right: 5px;
             cursor: pointer;
         }
-
         .dashboard-container {
             padding: 30px;
             max-width: 800px;
@@ -63,12 +62,10 @@
         h1, h2, h3 {
             text-align: center;
         }
-
-        /* Transparent container with hover, shadow, and glow effect */
         .glow-container {
             margin: 20px 0;
             padding: 20px;
-            background: rgba(255, 255, 255, 0.05); /* More transparent */
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
@@ -76,102 +73,56 @@
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
             overflow: hidden;
         }
-
         .glow-container:hover {
-            box-shadow: 0 6px 25px rgba(0, 123, 255, 0.8); /* Stronger shadow and glow on hover */
+            box-shadow: 0 6px 25px rgba(0, 123, 255, 0.8);
             transform: translateY(-10px);
         }
-
-        /* Glowing animation inside the container */
-        .glow-container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at center, rgba(0, 123, 255, 0.3), transparent 70%);
-            animation: glowing 3s infinite ease-in-out;
-            z-index: 0;
-            opacity: 0.7;
-        }
-
-        .glow-container::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 123, 255, 0.5), 0 0 50px rgba(0, 123, 255, 0.3);
-            z-index: 1;
-            pointer-events: none;
-            transition: box-shadow 0.3s ease-in-out;
-        }
-
-        .glow-container:hover::after {
-            box-shadow: 0 0 20px rgba(193, 199, 206, 0.7), 0 0 70px rgba(0, 123, 255, 0.5); /* Stronger glow on hover */
-        }
-
-        @keyframes glowing {
-            0% {
-                transform: scale(1);
-                filter: blur(5px);
-            }
-            50% {
-                transform: scale(1.05);
-                filter: blur(15px);
-            }
-            100% {
-                transform: scale(1);
-                filter: blur(5px);
-            }
-        }
-
         .glow-content {
             position: relative;
             z-index: 2;
         }
-
         .user-info {
             padding: 20px;
             border-bottom: 1px solid #444;
         }
-
         .package-section {
             margin: 20px 0;
         }
-
         .package {
             margin: 10px 0;
             padding: 15px;
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 5px;
             transition: background 0.3s, box-shadow 0.3s;
-            box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1); /* Slight shadow */
+            box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
         }
-
         .package:hover {
             background-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.5); /* Shadow on hover */
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.5);
         }
-
-        .graph {
-            height: 200px;
-            margin-top: 20px;
-            background: rgba(0, 255, 127, 0.1);
-            border: 1px solid rgb(185, 185, 196);
+        .package button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 15px;
             border-radius: 5px;
-            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
         }
-
-        .graph .bar {
-            background: rgb(227, 227, 231);
-            height: 100%;
-            position: absolute;
-            bottom: 0;
-            transition: height 0.3s;
+        .package button:hover {
+            background-color: #d32f2f;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+        .details {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+            display: none; /* Hidden by default */
+        }
+        footer {
+            text-align: center;
+            margin: 20px 0;
         }
     </style>
 </head>
@@ -205,35 +156,22 @@
         <div class="glow-container">
             <div class="glow-content">
                 <h3>Your Balance</h3>
-                <p>Balance: $1,250.00</p>
-                <p>Pending Transactions: $200.00</p>
+                <p>Balance: <span id="balance">$0.00</span></p>
             </div>
         </div>
 
         <div class="glow-container">
             <div class="glow-content">
                 <h3>Your Package Deals</h3>
-                <div class="package">
-                    <strong>Thailand Package</strong>
-                    <p>Enjoy a wonderful experience in Thailand! Includes hotel, meals, and tours.</p>
-                    <button>View Details</button>
-                </div>
-                <div class="package">
-                    <strong>Paris Package</strong>
-                    <p>Experience the romance of Paris with this exclusive deal!</p>
-                    <button>View Details</button>
-                </div>
-                <div class="package">
-                    <strong>Singapore Package</strong>
-                    <p>Discover the wonders of Singapore with this exciting package.</p>
-                    <button>View Details</button>
-                </div>
+                <div class="package-section"></div>
             </div>
         </div>
 
         <div class="graph">
             <h3>Travel Trends This Month</h3>
-            <div class="bar" style="width: 70%; height: 60%;"></div> <!-- Example data -->
+            <div class="bar bar-1"></div>
+            <div class="bar bar-2"></div>
+            <div class="bar bar-3"></div>
         </div>
     </div>
 
@@ -246,14 +184,61 @@
         const username = localStorage.getItem('username');
         document.getElementById('username-display').textContent = username || 'Guest';
 
+        // Fetch current balance data
+        let balance = parseFloat(localStorage.getItem('accountBalance')) || 5000.00; // Default balance if not set
+
+        // Update the displayed balance
+        document.getElementById('balance').textContent = "$" + balance.toFixed(2);
+
         // Hide/show buttons based on login status
-        if (username) {
-            document.getElementById('sign-in-link').style.display = 'none';
-            document.getElementById('sign-up-link').style.display = 'none';
-            document.getElementById('logout-button').style.display = 'inline';
-        } else {
-            document.getElementById('logout-button').style.display = 'none';
+        document.getElementById('logout-button').style.display = username ? 'inline' : 'none';
+
+        // Fetch booked packages for the user
+        const bookedPackages = JSON.parse(localStorage.getItem(`${username}_bookedPackages`) || '[]');
+
+        // Function to display package deals
+        function displayPackages(packages) {
+            const packageSection = document.querySelector('.package-section');
+            packageSection.innerHTML = ''; // Clear existing packages
+
+            packages.forEach((pkg, index) => {
+                const packageElement = document.createElement('div');
+                packageElement.classList.add('package');
+
+                // Create a details section
+                const detailsElement = document.createElement('div');
+                detailsElement.classList.add('details');
+                detailsElement.innerHTML = `
+                    <p><strong>Travel Date:</strong> ${pkg.travelDate}</p>
+                    <p><strong>Travel Time:</strong> ${pkg.travelTime}</p>
+                `;
+
+                packageElement.innerHTML = `
+                    <strong>${pkg.name}</strong>
+                    <p><strong>Price:</strong> $${pkg.price}</p>
+                    <button onclick="toggleDetails(${index})">View Details</button>
+                `;
+                packageElement.appendChild(detailsElement);
+                packageSection.appendChild(packageElement);
+            });
         }
+
+        // Display booked packages on load
+        displayPackages(bookedPackages);
+
+        // Function to toggle details of the package deal
+        function toggleDetails(index) {
+            const detailsElement = document.querySelectorAll('.details')[index];
+            detailsElement.style.display = detailsElement.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Logout functionality
+        document.getElementById('logout-button').addEventListener('click', function() {
+            localStorage.removeItem('username');
+            localStorage.removeItem('accountBalance'); // Clear balance
+            localStorage.removeItem(`${username}_bookedPackages`);
+            window.location.href = 'index.html';
+        });
     </script>
 </body>
 </html>

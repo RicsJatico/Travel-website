@@ -178,15 +178,14 @@
             );
             
             if (user) {
-    alert('Sign In successful!');
-    localStorage.setItem('userId', user.id); // Store user ID
-    localStorage.setItem('username', user.username); // Store username
-    localStorage.setItem('accountBalance', "$5000"); // Set account balance to $5000
-    window.location.href = 'account.html'; // Redirect to account page
-} else {
-    alert('Invalid username/email or password.');
-}
-
+                alert('Sign In successful!');
+                localStorage.setItem('userId', user.id); // Store user ID
+                localStorage.setItem('username', user.username); // Store username
+                localStorage.setItem('accountBalance', "5000"); // Set account balance to $5000
+                window.location.href = 'account.html'; // Redirect to account page
+            } else {
+                alert('Invalid username/email or password.');
+            }
         }
     </script>
 </body>
