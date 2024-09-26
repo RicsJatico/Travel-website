@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - Tourism Services</title>
+
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
@@ -72,6 +73,63 @@
             margin-top: 20px; /* Space above the additional info */
             font-size: 1.1em; /* Slightly smaller than the main text */
         }
+        
+        /* Creator image gallery */
+        .creator-gallery {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 0px;
+            padding: 10px 0;
+            box-shadow: 0 6px 12px rgba(202, 149, 2, 0.2); /* Added drop shadow */
+            padding-bottom: 30px; /* Adds some spacing for the images */
+        }
+        .creator {
+            text-align: center;
+            margin: 0px;
+        }
+        .creator img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(7, 159, 219, 0.2); /* Shadow effect */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .creator img:hover {
+            transform: scale(1.5); /* Enlarge on hover */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Darker shadow on hover */
+        }
+        .creator p {
+            margin-top: 5px;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+
+        /* Separate and adjust Creator 1's details */
+        .professor {
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+        .creator1-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .creator1-container p {
+            margin-top: 5px;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        /* Fade-in animation */
+        .fade-in {
+            opacity: 0;
+            transition: opacity 2.5s ease-in-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -107,9 +165,42 @@
                     <p>Our mission is to enhance the travel experience through comprehensive services that cater to every traveler's needs. From booking accommodations to providing local insights, we strive to make each journey memorable.</p>
                 </div>
                 <a href="#" class="show-more-button" id="show-more-button">Show More</a>
-                <div class="creator-info" id="creator-info">
-                    <p>This website has been created by the students of 2BSIT-1 at New Era University, under the guidance of our professor, Era Espinas. We aimed to develop a user-friendly platform that provides essential information and resources for travelers, fostering a love for exploration and discovery. Our team worked collaboratively, utilizing our skills and creativity to build a valuable tool for anyone looking to enhance their travel experience.</p>
-                </div>
+                
+               <!-- Creator Info Section -->
+<div class="creator-info fade-in" id="creator-info">
+    <p>This website has been created by the students of 2BSIT-1 at New Era University, under the guidance of our professor, Era Espinas. We aimed to develop a user-friendly platform that provides essential information and resources for travelers, fostering a love for exploration and discovery. Our team worked collaboratively, utilizing our skills and creativity to build a valuable tool for anyone looking to enhance their travel experience.</p>
+    
+    <!-- Professor section -->
+    <div class="creator1-container">
+        <p class="professor">Professor</p>
+        <div class="creator">
+            <img src="images/girl.png" alt="Creator 1" class="professor-image">
+            <p>Era Espinas</p>
+        </div>
+        <p>Students</p>
+    </div>
+
+    <!-- Add the creator image gallery here -->
+    <div class="creator-gallery">
+        <div class="creator">
+            <img src="images/IMG_7310.jpeg" alt="Creator 2">
+            <p>Esto, Rico J.</p>
+        </div>
+        <div class="creator">
+            <img src="images/boy.png" alt="Creator 3">
+            <p>Malinao, Nadrick</p>
+        </div>
+        <div class="creator">
+            <img src="images/boy.png" alt="Creator 4">
+            <p>Lantaca, Axle</p>
+        </div>
+        <div class="creator">
+            <img src="images/boy.png" alt="Creator 5">
+            <p>Dumaraog, Patrick</p>
+        </div>
+    </div>
+</div>
+
             </div>
         </section>
     </main>
@@ -122,99 +213,29 @@
     <script>
         // Toggle additional info
         document.getElementById('learn-more-button').addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent default anchor behavior
-            const additionalInfo = document.getElementById('additional-info');
-            if (additionalInfo.style.display === 'none' || additionalInfo.style.display === '') {
-                additionalInfo.style.display = 'block'; // Show additional info
-                this.textContent = 'Show Less'; // Change button text
-            } else {
-                additionalInfo.style.display = 'none'; // Hide additional info
-                this.textContent = 'Learn More'; // Reset button text
-            }
+            event.preventDefault(); // Prevent the default anchor click behavior
+            document.getElementById('additional-info').style.display = 'block';
+            document.getElementById('learn-more-button').style.display = 'none';
         });
 
-        // Toggle creator info
+        // Show more button functionality
         document.getElementById('show-more-button').addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent default anchor behavior
+            event.preventDefault(); // Prevent the default anchor click behavior
             const creatorInfo = document.getElementById('creator-info');
-            if (creatorInfo.style.display === 'none' || creatorInfo.style.display === '') {
-                creatorInfo.style.display = 'block'; // Show creator info
-                this.textContent = 'Show Less'; // Change button text
-            } else {
-                creatorInfo.style.display = 'none'; // Hide creator info
-                this.textContent = 'Show More'; // Reset button text
-            }
+            creatorInfo.style.display = 'block'; // Show the creator info section
+            setTimeout(() => {
+                creatorInfo.classList.add('visible'); // Add fade-in class
+            }, 50); // Delay to trigger CSS transition
+            this.style.display = 'none'; // Hide the show more button
         });
 
-        // Language selection
-        const titles = {
-            'usa': 'About Us',
-            'spain': 'Acerca de nosotros',
-            'japan': '私たちについて'
-        };
-        const descriptions = {
-            'usa': 'The primary goal of developing the Tourism Information System application is to assist customers in selecting appealing destinations and to offer top-notch travel services. This system aids tour operators by effectively managing their customers, hotels, vehicles, and agents, simplifying and streamlining all operations of the tour company.',
-            'spain': 'El objetivo principal del diseño y desarrollo de la aplicación del Sistema de Información Turística es ayudar a los clientes a seleccionar destinos atractivos y ofrecer servicios de viaje de alta calidad. Este sistema ayuda a los operadores turísticos a gestionar eficazmente a sus clientes, hoteles, vehículos y agentes, simplificando y agilizando todas las operaciones de la empresa de turismo.',
-            'japan': '観光情報システムアプリケーションの主な目的は、顧客が魅力的な目的地を選ぶ手助けをし、最高の旅行サービスを提供することです。このシステムは、ツアーオペレーターが顧客、ホテル、車両、エージェントを効果的に管理し、ツアー会社のすべての業務を簡素化および合理化するのに役立ちます。'
-        };
-        const flags = {
-            'usa': 'images/usa.jpg',
-            'spain': 'images/Spain_flag_300.png',
-            'japan': 'images/japan.png'
-        };
-        const languages = ['usa', 'spain', 'japan'];
-        let currentLanguage = localStorage.getItem('selectedLanguage') || 'usa';
-
-        // Navigation links in different languages
-        const navLinks = {
-            'usa': {
-                about: 'About',
-                explore: 'Explore',
-                destination: 'Destination',
-                contact: 'Contact',
-                account: 'My Account',
-                dashboard: 'Dashboard'
-            },
-            'spain': {
-                about: 'Acerca de',
-                explore: 'Explorar',
-                destination: 'Destino',
-                contact: 'Contacto',
-                account: 'Mi Cuenta',
-                dashboard: 'Tablero'
-            },
-            'japan': {
-                about: '私たちについて',
-                explore: '探検',
-                destination: '目的地',
-                contact: '連絡先',
-                account: 'マイアカウント',
-                dashboard: 'ダッシュボード'
+        // Show the creator info section on page load if already clicked
+        window.onload = function() {
+            if (document.getElementById('additional-info').style.display === 'block') {
+                document.getElementById('creator-info').style.display = 'block';
+                document.getElementById('creator-info').classList.add('visible'); // Trigger fade-in effect
             }
         };
-
-        // Set the initial language based on localStorage
-        function setLanguage(language) {
-            document.getElementById('about-title').textContent = titles[language];
-            document.getElementById('about-description').textContent = descriptions[language];
-            document.getElementById('language-flag').src = flags[language];
-
-            // Update navigation links
-            document.getElementById('about-link').textContent = navLinks[language].about;
-            document.getElementById('explore-link').textContent = navLinks[language].explore;
-            document.getElementById('destination-link').textContent = navLinks[language].destination;
-            document.getElementById('contact-link').textContent = navLinks[language].contact;
-            document.getElementById('account-link').textContent = navLinks[language].account;
-            document.getElementById('dashboard-link').textContent = navLinks[language].dashboard;
-        }
-
-        setLanguage(currentLanguage);
-
-        document.getElementById('language-flag').addEventListener('click', () => {
-            currentLanguage = languages[(languages.indexOf(currentLanguage) + 1) % languages.length];
-            localStorage.setItem('selectedLanguage', currentLanguage);
-            setLanguage(currentLanguage);
-        });
     </script>
 </body>
 </html>
