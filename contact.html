@@ -9,12 +9,96 @@
         .flag {
             width: 30px;
             cursor: pointer;
-            margin-right: 10px; /* Space between flag and username */
-            margin-left: -5px; /* Move flag slightly to the left */
+            margin-right: 10px;
+            margin-left: -5px;
         }
         .flag:hover {
             transform: scale(1.4);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Logo Size */
+        .logo img {
+            width: 100px; /* Adjust this value to make the logo smaller */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        /* Gallery Container */
+        .team-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        /* Individual Profile Card */
+        .profile-card {
+            background-color: #999999ce;
+            width: 250px;
+            margin: 15px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .profile-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(7, 46, 219, 0.719);
+        }
+
+        /* Circular Profile Image */
+        .profile-card img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        /* Profile Details */
+        .profile-details {
+            font-family: Arial, sans-serif;
+        }
+
+        .profile-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .profile-info {
+            font-size: 14px;
+            color: #0a0909;
+            margin-bottom: 5px;
+        }
+
+        .social-media {
+            margin-top: 10px;
+        }
+
+        .social-media a {
+            margin: 0 5px;
+            text-decoration: none;
+        }
+
+        .social-icon {
+    width: 5px; /* Set to desired size */
+    height: 5px; /* Set to desired size */
+    transition: transform 0.3s ease;
+}
+
+.social-icon:hover {
+    transform: scale(1.2); /* Slightly enlarge on hover */
+}
+
+        /* Small container for social icons */
+        .small-social-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -46,83 +130,86 @@
             <h1 id="contact-title">Contact Us</h1>
             <p id="contact-description">Get in touch with us for any inquiries or support.</p>
         </section>
+
+        <!-- Team Gallery Section -->
+        <section class="team-gallery">
+            <!-- Profile 1 -->
+            <div class="profile-card">
+                <img src="images/girl.png" alt="Profile 1">
+                <div class="profile-details">
+                    <div class="profile-name">Era Espinas</div>
+                    <div class="profile-info">Phone: +1 234 567 890</div>
+                    <div class="profile-info">Email: email@example.com</div>
+                    <div class="social-media">
+                        <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile 2 -->
+            <div class="profile-card">
+                <img src="images/IMG_7310.jpeg" alt="Profile 2" class="profile-image"> <!-- Smaller profile image -->
+                <div class="profile-details">
+                    <div class="profile-name">Rico Esto</div>
+                    <div class="profile-info">Phone: +639617491809</div>
+                    <div class="profile-info">Email: rico.esto@neu.edu.ph</div>
+                    <div class="social-media">
+                        <div class="small-social-container">
+                        
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile 3 -->
+            <div class="profile-card">
+                <img src="images/boy.png" alt="Profile 3">
+                <div class="profile-details">
+                    <div class="profile-name">Nadrick Malinano</div>
+                    <div class="profile-info">Phone: +61 9876 5432</div>
+                    <div class="profile-info">Email: email@example.com.au</div>
+                    <div class="social-media">
+                        <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile 4 -->
+            <div class="profile-card">
+                <img src="images/boy.png" alt="Profile 4">
+                <div class="profile-details">
+                    <div class="profile-name">Axle Lantaca</div>
+                    <div class="profile-info">Phone: +33 1234 5678</div>
+                    <div class="profile-info">Email: email@example.fr</div>
+                    <div class="social-media">
+                        <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile 5 -->
+            <div class="profile-card">
+                <img src="images/boy.png" alt="Profile 5">
+                <div class="profile-details">
+                    <div class="profile-name">Patrick Dumaraog</div>
+                    <div class="profile-info">Phone: +49 987 654 321</div>
+                    <div class="profile-info">Email: email@example.de</div>
+                    <div class="social-media">
+                        <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer>
-        <p>&copy; 2024 Tourism Services. All rights reserved.</p>
+        <p>© 2024 Tourism Services. All rights reserved.</p>
     </footer>
-
-    <script src="header.js"></script>
-    <script>
-        // Language selection
-        const titles = {
-            'usa': 'Contact Us',
-            'spain': 'Contáctenos',
-            'japan': 'お問い合わせ'
-        };
-        const descriptions = {
-            'usa': 'Get in touch with us for any inquiries or support.',
-            'spain': 'Póngase en contacto con nosotros para cualquier consulta o soporte.',
-            'japan': 'お問い合わせやサポートについてはご連絡ください。'
-        };
-        const flags = {
-            'usa': 'images/usa.jpg',
-            'spain': 'images/Spain_flag_300.png',
-            'japan': 'images/japan.png'
-        };
-        const languages = ['usa', 'spain', 'japan'];
-        let currentLanguage = localStorage.getItem('selectedLanguage') || 'usa';
-
-        // Set the initial language based on localStorage
-        function setLanguage(language) {
-            document.getElementById('contact-title').textContent = titles[language];
-            document.getElementById('contact-description').textContent = descriptions[language];
-            document.getElementById('language-flag').src = flags[language];
-
-            // Update navigation links
-            document.getElementById('about-link').textContent = navLinks[language].about;
-            document.getElementById('explore-link').textContent = navLinks[language].explore;
-            document.getElementById('destination-link').textContent = navLinks[language].destination;
-            document.getElementById('contact-link').textContent = navLinks[language].contact;
-            document.getElementById('account-link').textContent = navLinks[language].account;
-            document.getElementById('dashboard-link').textContent = navLinks[language].dashboard;
-        }
-
-        // Navigation links in different languages
-        const navLinks = {
-            'usa': {
-                about: 'About',
-                explore: 'Explore',
-                destination: 'Destination',
-                contact: 'Contact',
-                account: 'My Account',
-                dashboard: 'Dashboard'
-            },
-            'spain': {
-                about: 'Acerca de',
-                explore: 'Explorar',
-                destination: 'Destino',
-                contact: 'Contacto',
-                account: 'Mi Cuenta',
-                dashboard: 'Tablero'
-            },
-            'japan': {
-                about: '私たちについて',
-                explore: '探検',
-                destination: '目的地',
-                contact: '連絡先',
-                account: 'マイアカウント',
-                dashboard: 'ダッシュボード'
-            }
-        };
-
-        setLanguage(currentLanguage);
-
-        document.getElementById('language-flag').addEventListener('click', () => {
-            currentLanguage = languages[(languages.indexOf(currentLanguage) + 1) % languages.length];
-            localStorage.setItem('selectedLanguage', currentLanguage);
-            setLanguage(currentLanguage);
-        });
-    </script>
 </body>
 </html>
