@@ -6,15 +6,71 @@
     <title>About Us - Tourism Services</title>
     <link rel="stylesheet" href="styles.css">
     <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
         .flag {
             width: 30px;
             cursor: pointer;
-            margin-right: 10px; /* Space between flag and username */
-            margin-left: -5px; /* Move flag slightly to the left */
+            margin-right: 10px;
+            margin-left: -5px;
         }
         .flag:hover {
             transform: scale(1.4);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        #about {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .about-container {
+            background: rgba(139, 136, 136, 0.685);
+            padding: 60px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 255, 255, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+            max-width: 800px;
+            text-align: center;
+            position: relative;
+        }
+        .about-container h1 {
+            font-size: 2.5em;
+            margin: 0 0 20px;
+        }
+        .about-container p {
+            font-size: 1.2em;
+        }
+        .about-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+        .learn-more-button, .show-more-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .learn-more-button:hover, .show-more-button:hover {
+            background-color: #0056b3;
+        }
+        .additional-info, .creator-info {
+            display: none; /* Hidden by default */
+            margin-top: 20px; /* Space above the additional info */
+            font-size: 1.1em; /* Slightly smaller than the main text */
         }
     </style>
 </head>
@@ -43,8 +99,18 @@
     
     <main>
         <section id="about">
-            <h1 id="about-title">About Us</h1>
-            <p id="about-description">Welcome to our tourism service website. We offer the best travel experiences around the world.</p>
+            <div class="about-container">
+                <h1 id="about-title">About Us</h1>
+                <p id="about-description">The primary goal of developing the Tourism Information System application is to assist customers in selecting appealing destinations and to offer top-notch travel services. This system aids tour operators by effectively managing their customers, hotels, vehicles, and agents, simplifying and streamlining all operations of the tour company.</p>
+                <a href="#" class="learn-more-button" id="learn-more-button">Learn More</a>
+                <div class="additional-info" id="additional-info">
+                    <p>Our mission is to enhance the travel experience through comprehensive services that cater to every traveler's needs. From booking accommodations to providing local insights, we strive to make each journey memorable.</p>
+                </div>
+                <a href="#" class="show-more-button" id="show-more-button">Show More</a>
+                <div class="creator-info" id="creator-info">
+                    <p>This website has been created by the students of 2BSIT-1 at New Era University, under the guidance of our professor, Era Espinas. We aimed to develop a user-friendly platform that provides essential information and resources for travelers, fostering a love for exploration and discovery. Our team worked collaboratively, utilizing our skills and creativity to build a valuable tool for anyone looking to enhance their travel experience.</p>
+                </div>
+            </div>
         </section>
     </main>
 
@@ -54,6 +120,32 @@
 
     <script src="header.js"></script>
     <script>
+        // Toggle additional info
+        document.getElementById('learn-more-button').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default anchor behavior
+            const additionalInfo = document.getElementById('additional-info');
+            if (additionalInfo.style.display === 'none' || additionalInfo.style.display === '') {
+                additionalInfo.style.display = 'block'; // Show additional info
+                this.textContent = 'Show Less'; // Change button text
+            } else {
+                additionalInfo.style.display = 'none'; // Hide additional info
+                this.textContent = 'Learn More'; // Reset button text
+            }
+        });
+
+        // Toggle creator info
+        document.getElementById('show-more-button').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default anchor behavior
+            const creatorInfo = document.getElementById('creator-info');
+            if (creatorInfo.style.display === 'none' || creatorInfo.style.display === '') {
+                creatorInfo.style.display = 'block'; // Show creator info
+                this.textContent = 'Show Less'; // Change button text
+            } else {
+                creatorInfo.style.display = 'none'; // Hide creator info
+                this.textContent = 'Show More'; // Reset button text
+            }
+        });
+
         // Language selection
         const titles = {
             'usa': 'About Us',
@@ -61,9 +153,9 @@
             'japan': '私たちについて'
         };
         const descriptions = {
-            'usa': 'Welcome to our tourism service website. We offer the best travel experiences around the world.',
-            'spain': 'Bienvenido a nuestro sitio web de servicios turísticos. Ofrecemos las mejores experiencias de viaje en todo el mundo.',
-            'japan': '私たちの観光サービスウェブサイトへようこそ。世界中で最高の旅行体験を提供します。'
+            'usa': 'The primary goal of developing the Tourism Information System application is to assist customers in selecting appealing destinations and to offer top-notch travel services. This system aids tour operators by effectively managing their customers, hotels, vehicles, and agents, simplifying and streamlining all operations of the tour company.',
+            'spain': 'El objetivo principal del diseño y desarrollo de la aplicación del Sistema de Información Turística es ayudar a los clientes a seleccionar destinos atractivos y ofrecer servicios de viaje de alta calidad. Este sistema ayuda a los operadores turísticos a gestionar eficazmente a sus clientes, hoteles, vehículos y agentes, simplificando y agilizando todas las operaciones de la empresa de turismo.',
+            'japan': '観光情報システムアプリケーションの主な目的は、顧客が魅力的な目的地を選ぶ手助けをし、最高の旅行サービスを提供することです。このシステムは、ツアーオペレーターが顧客、ホテル、車両、エージェントを効果的に管理し、ツアー会社のすべての業務を簡素化および合理化するのに役立ちます。'
         };
         const flags = {
             'usa': 'images/usa.jpg',
@@ -123,7 +215,6 @@
             localStorage.setItem('selectedLanguage', currentLanguage);
             setLanguage(currentLanguage);
         });
-        
     </script>
 </body>
 </html>
