@@ -96,6 +96,8 @@
             height: 600px; /* Increased height */
             width: 1,300px; /* Set width to 800px */
             margin: 20px; /* Added margin for spacing around each card */
+            text-decoration: none; /* Remove underline from links */
+            color: inherit; /* Inherit color from parent */
         }
 
         .destination-card img {
@@ -125,25 +127,6 @@
 
         .destination-card:hover .info {
             opacity: 1;
-        }
-
-        /* New Detailed Info Section */
-        .detailed-info {
-            display: none;
-            position: absolute;
-            top: 50%;
-            left: 100%; /* Position it beside the card */
-            transform: translateY(-50%);
-            width: 300px;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-            color: #E0E0E0;
-        }
-
-        .destination-card:hover .detailed-info {
-            display: block; /* Show detailed info on hover */
         }
 
         /* Custom Styles for Country Name */
@@ -202,56 +185,55 @@
         <!-- Destination Cards -->
         <div class="destination-container">
             <!-- Thailand -->
-            <div class="destination-card">
+            <a href="thailand.html" class="destination-card">
                 <img src="images/t3.jpg" alt="Thailand">
                 <div class="info">
                     <h2>Thailand</h2>
-                    <p>Experience breathtaking beaches, vibrant cities, and rich traditions in Thailand. Visit Bangkok for its bustling markets, Phuket for its stunning beaches, and Chiang Mai for its rich culture and Don't miss out on traditional Thai dance performances, delicious street food, and majestic temples like Wat Phra Kaew. Engage with friendly locals and immerse yourself in vibrant festivals like Songkran, the Thai New Year.</p>
+                    <p>Experience breathtaking beaches, vibrant cities, and rich traditions in Thailand. Visit Bangkok for its bustling markets, Phuket for its stunning beaches, and Chiang Mai for its rich culture. Don't miss out on traditional Thai dance performances, delicious street food, and majestic temples like Wat Phra Kaew. Engage with friendly locals and immerse yourself in vibrant festivals like Songkran, the Thai New Year.</p>
                 </div>
-            </div>
+            </a>
 
             <!-- Singapore -->
-            <div class="destination-card">
+            <a href="singapore.html" class="destination-card">
                 <img src="images/singapore.jpg" alt="Singapore">
                 <div class="info">
                     <h2>Singapore</h2>
-                    <p>Discover the futuristic skyline, luxury shopping, and diverse culinary delights of Singapore. Visit Marina Bay Sands for stunning views, Gardens by the Bay for its iconic Supertree Grove, and Sentosa Island for fun-filled adventures and experience diverse culinary offerings from hawker centers, immerse yourself in the vibrant arts scene, and participate in exciting festivals like the Singapore Food Festival and National Day Parade.</p>
+                    <p>Discover the futuristic skyline, luxury shopping, and diverse culinary delights of Singapore. Visit Marina Bay Sands for stunning views, Gardens by the Bay for its iconic Supertree Grove, and Sentosa Island for fun-filled adventures. Experience diverse culinary offerings from hawker centers, immerse yourself in the vibrant arts scene, and participate in exciting festivals like the Singapore Food Festival and National Day Parade.</p>
                 </div>
-            </div>
+            </a>
 
             <!-- Japan -->
-            <div class="destination-card">
+            <a href="japan.html" class="destination-card">
                 <img src="images/j2.avif" alt="Japan">
                 <div class="info">
                     <h2>Japan</h2>
-                    <p>Immerse yourself in a unique blend of ancient traditions and cutting-edge technology in Japan. Visit Tokyo for its bustling urban landscape, Kyoto for its beautiful temples, and Hiroshima for its historical significance and experience traditional tea ceremonies, the breathtaking cherry blossom festivals, and intricate traditional crafts like pottery and calligraphy. Don’t forget to try authentic Japanese cuisine, including sushi, ramen, and kaiseki.</p>
+                    <p>Immerse yourself in a unique blend of ancient traditions and cutting-edge technology in Japan. Visit Tokyo for its bustling urban landscape, Kyoto for its beautiful temples, and Hiroshima for its historical significance. Experience traditional tea ceremonies, the breathtaking cherry blossom festivals, and intricate traditional crafts like pottery and calligraphy. Don’t forget to try authentic Japanese cuisine, including sushi, ramen, and kaiseki.</p>
                 </div>
-            </div>
+            </a>
 
             <!-- Paris -->
-            <div class="destination-card">
+            <a href="paris.html" class="destination-card">
                 <img src="images/p4.avif" alt="Paris">
                 <div class="info">
                     <h2>Paris</h2>
-                    <p>Fall in love with the charm of Paris, the City of Light. Visit the Eiffel Tower, stroll along the Seine, and explore world-class art museums like the Louvre and experience the artistic heritage, gourmet cuisine, and enchanting neighborhoods like Montmartre and Le Marais. Engage in a culinary journey through classic French pastries, explore art galleries, and witness vibrant street performances at the many outdoor cafés.</p>
+                    <p>Fall in love with the charm of Paris, the City of Light. Visit the Eiffel Tower, stroll along the Seine, and explore world-class art museums like the Louvre. Experience the artistic heritage, gourmet cuisine, and enchanting neighborhoods like Montmartre and Le Marais. Engage in a culinary journey through classic French pastries, explore art galleries, and witness vibrant street performances at the many outdoor cafés.</p>
                 </div>
-            </div>
+            </a>
 
             <!-- Hong Kong -->
-            <div class="destination-card">
+            <a href="hongkong.html" class="destination-card">
                 <img src="images/h2.jpg" alt="Hong Kong">
                 <div class="info">
                     <h2>Hong Kong</h2>
-                    <p>Experience the vibrant city life, stunning harbor views, and rich culture in Hong Kong. Visit Victoria Peak for breathtaking views, explore the bustling streets of Mong Kok, and discover the serenity of the Big Buddha and enjoy delicious dim sum, vibrant night markets, and the annual Chinese New Year celebrations that light up the city. Engage with local culture at traditional festivals and explore the blend of Eastern and Western influences in architecture and cuisine.</p>
+                    <p>Experience the vibrant city life, stunning harbor views, and rich culture in Hong Kong. Visit Victoria Peak for breathtaking views, explore the bustling streets of Mong Kok, and discover the serenity of the Big Buddha. Savor delicious dim sum, experience the vibrant nightlife, and take part in cultural events like the Hong Kong Arts Festival and the Chinese New Year celebrations.</p>
                 </div>
-            </div>
+            </a>
         </div>
     </main>
 
     <!-- Footer Section -->
     <footer>
-        <p>&copy; 2024 Travel Services. All rights reserved.</p>
+        <p>&copy; 2024 Your Company. All rights reserved.</p>
     </footer>
-
 </body>
 </html>
