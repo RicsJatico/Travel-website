@@ -6,123 +6,252 @@
     <title>Destination - Tourism Services</title>
     <link rel="stylesheet" href="styles.css">
     <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #0A0A0A;
+            color: #E0E0E0;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        header, footer {
+            background-color: #111;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
         .flag {
             width: 30px;
             cursor: pointer;
-            margin-right: 10px; /* Space between flag and username */
-            margin-left: -5px; /* Move flag slightly to the left */
+            margin-left: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
         .flag:hover {
-            transform: scale(1.4);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transform: scale(1.2);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+        }
+
+        .auth img {
+            vertical-align: middle;
+        }
+
+        main {
+            padding: 0;
+            margin: 0;
+            background: linear-gradient(45deg, #1f1f1f, #141414);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .destination-header {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .destination-header h1 {
+            font-size: 2.5em;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .destination-header p {
+            font-size: 1.2em;
+            margin: 0;
+        }
+
+        .destination-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(800px, 1fr)); /* Adjusted for 800px */
+            gap: 20px;
+            margin: 20px;
+            justify-content: center; /* Centering the cards */
+        }
+
+        .destination-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(6, 20, 216, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 600px; /* Increased height */
+            width: 1,300px; /* Set width to 800px */
+            margin: 20px; /* Added margin for spacing around each card */
+        }
+
+        .destination-card img {
+            width: 100%;
+            height: 100%; /* Adjusted to match card height */
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .destination-card:hover {
+            transform: translateX(10px); /* Move the image sideways on hover */
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+        }
+
+        .destination-card .info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .destination-card:hover .info {
+            opacity: 1;
+        }
+
+        /* New Detailed Info Section */
+        .detailed-info {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 100%; /* Position it beside the card */
+            transform: translateY(-50%);
+            width: 300px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            color: #E0E0E0;
+        }
+
+        .destination-card:hover .detailed-info {
+            display: block; /* Show detailed info on hover */
+        }
+
+        /* Custom Styles for Country Name */
+        .info h2 {
+            font-family: 'Times New Roman', serif;
+            font-size: 5em; /* Increased font size */
+            background: rgb(241, 238, 238); /* Slightly opaque for transparency */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0D0D0D;
+            padding: 20px 0;
+        }
+
+        footer p {
+            margin: 0;
+            color: #888;
+            font-size: 0.9em;
         }
     </style>
 </head>
 <body>
+    <!-- Header Section -->
     <header>
         <div class="logo">
             <a href="index.html"><img src="images/Travel 1.png" alt="Logo"></a>
         </div>
         <nav>
             <ul>
-                <li><a href="about.html" class="nav-link" id="about-link">About</a></li>
-                <li><a href="explore.html" class="nav-link" id="explore-link">Explore</a></li>
-                <li><a href="destination.html" class="nav-link" id="destination-link">Destination</a></li>
-                <li><a href="contact.html" class="nav-link" id="contact-link">Contact</a></li>
-                <li><a href="account.html" class="nav-link" id="account-link">My Account</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="explore.html" class="nav-link">Explore</a></li>
+                <li><a href="destination.html" class="nav-link">Destination</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="account.html" class="nav-link">My Account</a></li>
             </ul>
         </nav>
         <div class="auth">
             <img src="images/usa.jpg" id="language-flag" class="flag" alt="Language Flag">
             <span id="username-display"></span>
-            <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
-            <a href="sign-in.html" class="btn-sign-in" id="sign-in-link">Sign In</a>
-            <a href="sign-up.html" class="btn-sign-up" id="sign-up-link">Sign Up</a>
+            <a href="sign-in.html" class="btn-sign-in">Sign In</a>
+            <a href="sign-up.html" class="btn-sign-up">Sign Up</a>
         </div>
     </header>
 
+    <!-- Main Content -->
     <main>
-        <section id="destination">
+        <!-- Destination Header -->
+        <div class="destination-header">
             <h1 id="destination-title">Destination</h1>
             <p id="destination-description">Explore our top destinations around the world.</p>
-        </section>
+        </div>
+
+        <!-- Destination Cards -->
+        <div class="destination-container">
+            <!-- Thailand -->
+            <div class="destination-card">
+                <img src="images/thai1.jpeg" alt="Thailand">
+                <div class="info">
+                    <h2>Thailand</h2>
+                    <p>Experience breathtaking beaches, vibrant cities, and rich traditions in Thailand. Visit Bangkok for its bustling markets, Phuket for its stunning beaches, and Chiang Mai for its rich culture and Don't miss out on traditional Thai dance performances, delicious street food, and majestic temples like Wat Phra Kaew. Engage with friendly locals and immerse yourself in vibrant festivals like Songkran, the Thai New Year.</p>
+                </div>
+            </div>
+
+            <!-- Singapore -->
+            <div class="destination-card">
+                <img src="images/singapore.jpg" alt="Singapore">
+                <div class="info">
+                    <h2>Singapore</h2>
+                    <p>Discover the futuristic skyline, luxury shopping, and diverse culinary delights of Singapore. Visit Marina Bay Sands for stunning views, Gardens by the Bay for its iconic Supertree Grove, and Sentosa Island for fun-filled adventures and experience diverse culinary offerings from hawker centers, immerse yourself in the vibrant arts scene, and participate in exciting festivals like the Singapore Food Festival and National Day Parade.</p>
+                </div>
+            </div>
+
+            <!-- Japan -->
+            <div class="destination-card">
+                <img src="images/j2.avif" alt="Japan">
+                <div class="info">
+                    <h2>Japan</h2>
+                    <p>Immerse yourself in a unique blend of ancient traditions and cutting-edge technology in Japan. Visit Tokyo for its bustling urban landscape, Kyoto for its beautiful temples, and Hiroshima for its historical significance and experience traditional tea ceremonies, the breathtaking cherry blossom festivals, and intricate traditional crafts like pottery and calligraphy. Don’t forget to try authentic Japanese cuisine, including sushi, ramen, and kaiseki.</p>
+                </div>
+            </div>
+
+            <!-- Paris -->
+            <div class="destination-card">
+                <img src="images/p4.avif" alt="Paris">
+                <div class="info">
+                    <h2>Paris</h2>
+                    <p>Fall in love with the charm of Paris, the City of Light. Visit the Eiffel Tower, stroll along the Seine, and explore world-class art museums like the Louvre and experience the artistic heritage, gourmet cuisine, and enchanting neighborhoods like Montmartre and Le Marais. Engage in a culinary journey through classic French pastries, explore art galleries, and witness vibrant street performances at the many outdoor cafés.</p>
+                </div>
+            </div>
+
+            <!-- Hong Kong -->
+            <div class="destination-card">
+                <img src="images/h2.jpg" alt="Hong Kong">
+                <div class="info">
+                    <h2>Hong Kong</h2>
+                    <p>Experience the vibrant city life, stunning harbor views, and rich culture in Hong Kong. Visit Victoria Peak for breathtaking views, explore the bustling streets of Mong Kok, and discover the serenity of the Big Buddha and enjoy delicious dim sum, vibrant night markets, and the annual Chinese New Year celebrations that light up the city. Engage with local culture at traditional festivals and explore the blend of Eastern and Western influences in architecture and cuisine.</p>
+                </div>
+            </div>
+        </div>
     </main>
 
+    <!-- Footer Section -->
     <footer>
-        <p>&copy; 2024 Tourism Services. All rights reserved.</p>
+        <p>&copy; 2024 Travel Services. All rights reserved.</p>
     </footer>
 
-    <script src="header.js"></script>
-    <script>
-        // Language selection
-        const titles = {
-            'usa': 'Destination',
-            'spain': 'Destino',
-            'japan': '目的地'
-        };
-        const descriptions = {
-            'usa': 'Explore our top destinations around the world.',
-            'spain': 'Explora nuestros principales destinos alrededor del mundo.',
-            'japan': '世界中の人気の目的地を探検しましょう。'
-        };
-        const flags = {
-            'usa': 'images/usa.jpg',
-            'spain': 'images/Spain_flag_300.png',
-            'japan': 'images/japan.png'
-        };
-        const languages = ['usa', 'spain', 'japan'];
-        let currentLanguage = localStorage.getItem('selectedLanguage') || 'usa';
-
-        // Set the initial language based on localStorage
-        function setLanguage(language) {
-            document.getElementById('destination-title').textContent = titles[language];
-            document.getElementById('destination-description').textContent = descriptions[language];
-            document.getElementById('language-flag').src = flags[language];
-
-            // Update navigation links
-            document.getElementById('about-link').textContent = navLinks[language].about;
-            document.getElementById('explore-link').textContent = navLinks[language].explore;
-            document.getElementById('destination-link').textContent = navLinks[language].destination;
-            document.getElementById('contact-link').textContent = navLinks[language].contact;
-            document.getElementById('account-link').textContent = navLinks[language].account;
-            document.getElementById('dashboard-link').textContent = navLinks[language].dashboard;
-        }
-
-        // Navigation links in different languages
-        const navLinks = {
-            'usa': {
-                about: 'About',
-                explore: 'Explore',
-                destination: 'Destination',
-                contact: 'Contact',
-                account: 'My Account',
-                dashboard: 'Dashboard'
-            },
-            'spain': {
-                about: 'Acerca de',
-                explore: 'Explorar',
-                destination: 'Destino',
-                contact: 'Contacto',
-                account: 'Mi Cuenta',
-                dashboard: 'Tablero'
-            },
-            'japan': {
-                about: '私たちについて',
-                explore: '探検',
-                destination: '目的地',
-                contact: '連絡先',
-                account: 'マイアカウント',
-                dashboard: 'ダッシュボード'
-            }
-        };
-
-        setLanguage(currentLanguage);
-
-        document.getElementById('language-flag').addEventListener('click', () => {
-            currentLanguage = languages[(languages.indexOf(currentLanguage) + 1) % languages.length];
-            localStorage.setItem('selectedLanguage', currentLanguage);
-            setLanguage(currentLanguage);
-        });
-    </script>
 </body>
 </html>
