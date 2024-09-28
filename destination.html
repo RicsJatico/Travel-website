@@ -43,6 +43,7 @@
             width: 30px;
             cursor: pointer;
             margin-left: 10px;
+            margin-right: 5px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
@@ -163,14 +164,15 @@
                 <li><a href="explore.html" class="nav-link">Explore</a></li>
                 <li><a href="destination.html" class="nav-link">Destination</a></li>
                 <li><a href="contact.html" class="nav-link">Contact</a></li>
-                <li><a href="account.html" class="nav-link">My Account</a></li>
+
             </ul>
         </nav>
         <div class="auth">
             <img src="images/usa.jpg" id="language-flag" class="flag" alt="Language Flag">
             <span id="username-display"></span>
-            <a href="sign-in.html" class="btn-sign-in">Sign In</a>
-            <a href="sign-up.html" class="btn-sign-up">Sign Up</a>
+            <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
+            <a href="sign-in.html" class="btn-sign-in" id="sign-in-link">Sign In</a>
+            <a href="sign-up.html" class="btn-sign-up" id="sign-up-link">Sign Up</a>
         </div>
     </header>
 
@@ -235,5 +237,55 @@
     <footer>
         <p>&copy; 2024 Your Company. All rights reserved.</p>
     </footer>
+    <script src="header.js"></script>
+
+    <script>
+        // Function to update the language flag and text based on the selected language
+        function updateLanguage(lang) {
+            const flagElement = document.getElementById('language-flag');
+            const destinationTitle = document.getElementById('destination-title');
+            const destinationDescription = document.getElementById('destination-description');
+    
+            if (lang === 'usa') {
+                flagElement.src = 'images/usa.jpg';
+                flagElement.alt = 'USA Flag';
+                destinationTitle.textContent = 'Destination';
+                destinationDescription.textContent = 'Explore our top destinations around the world.';
+                
+            } else if (lang === 'japan') {
+                flagElement.src = 'images/japan.png';
+                flagElement.alt = 'Japan Flag';
+                destinationTitle.textContent = '目的地';
+                destinationDescription.textContent = '世界中のトップの目的地を探索してください。';
+            } else if (lang === 'spain') {
+                flagElement.src = 'images/Spain_flag_300.png';
+                flagElement.alt = 'Spain Flag';
+                destinationTitle.textContent = 'Destino';
+                destinationDescription.textContent = 'Explora nuestros principales destinos en todo el mundo.';
+            }
+        }
+    
+        // Get the saved language from local storage or default to 'usa'
+        const savedLanguage = localStorage.getItem('language') || 'usa';
+        updateLanguage(savedLanguage);
+    
+        // Add an event listener to the flag to switch between languages
+        document.getElementById('language-flag').addEventListener('click', function () {
+            let currentLang = localStorage.getItem('language') || 'usa';
+    
+            if (currentLang === 'usa') {
+                localStorage.setItem('language', 'japan');
+            } else if (currentLang === 'japan') {
+                localStorage.setItem('language', 'spain');
+            } else {
+                localStorage.setItem('language', 'usa');
+            }
+    
+            // Update the page based on the newly set language
+            updateLanguage(localStorage.getItem('language'));
+        });
+    </script>
+    
+
 </body>
 </html>
