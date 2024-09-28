@@ -57,9 +57,9 @@
             padding: 30px;
             max-width: 1000px;
             margin: 20px auto;
-            background: rgba(50, 50, 50, 0.8);
+            background: rgba(209, 20, 20, 0.05);
             border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 20px rgb(241, 0, 0);
         }
         
         h1, h2, h3 {
@@ -92,7 +92,7 @@
         }
 
         .glow-container p {
-            text-align : center;
+            text-align: center;
             margin: 20px 0;
         }
        
@@ -144,7 +144,7 @@
         }
 
         /* Bar graph below the package deals */
-        .bar-chart-container {
+        .bar-chart-container, .line-chart-container {
             margin-top: 20px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
@@ -180,7 +180,6 @@
             <p>Your account details and package deals are listed below.</p>
         </div>
         <div class="dashboard-container">
-            <!-- Flex container for account balance and pie chart -->
             <div class="balance-pie-container">
                 <div class="glow-container">
                     <div class="glow-content">
@@ -193,18 +192,18 @@
                 </div>
             </div>
     
-            <!-- Horizontal package deals -->
             <div class="package-section">
                 <!-- Package deals dynamically injected here -->
             </div>
     
-            <!-- Bar chart below the packages -->
             <div class="bar-chart-container">
                 <canvas id="barChart"></canvas>
             </div>
-        </div>
 
-    
+            <div class="line-chart-container">
+                <canvas id="lineChart"></canvas>
+            </div>
+        </div>
 
     <footer>
         <p>&copy; 2024 Tourism Services. All rights reserved.</p>
@@ -232,7 +231,7 @@
             const packageSection = document.querySelector('.package-section');
             packageSection.innerHTML = ''; // Clear existing packages
 
-            packages.forEach((pkg, index) => {
+            packages.forEach((pkg) => {
                 const packageElement = document.createElement('div');
                 packageElement.classList.add('package');
 
@@ -240,77 +239,80 @@
                 const detailsElement = document.createElement('div');
                 detailsElement.classList.add('details');
                 detailsElement.innerHTML = `
-                    <p><strong>Travel Date:</strong> ${pkg.travelDate}</p>
-                    <p><strong>Travel Time:</strong> ${pkg.travelTime}</p>
+             
                 `;
 
                 packageElement.innerHTML = `
                     <strong>${pkg.name}</strong>
                     <p><strong>Price:</strong> $${pkg.price}</p>
-                    <button onclick="toggleDetails(${index})">View Details</button>
                 `;
                 packageElement.appendChild(detailsElement);
+                detailsElement.style.display = 'block'; // Make the details visible
+                
+                const viewButton = document.createElement('button');
+                viewButton.textContent = 'View Details';
+                viewButton.onclick = () => {
+                    // Display package details
+                    alert(`Details for ${pkg.name}\nPrice: $${pkg.price}\nTravel Date: ${pkg.travelDate}\nTravel Time: ${pkg.travelTime}`);
+                };
+                
+                packageElement.appendChild(viewButton);
                 packageSection.appendChild(packageElement);
             });
         }
 
-        // Toggle package details visibility
-        function toggleDetails(index) {
-            const details = document.querySelectorAll('.details');
-            details[index].style.display = details[index].style.display === 'block' ? 'none' : 'block';
-        }
-
-        // Display booked packages
+        // Display the user's booked packages
         displayPackages(bookedPackages);
 
-        // Data for the pie chart
-        const pieData = {
-            labels: ['Balance', 'Spent'],
-            datasets: [{
-                label: 'Account Balance Distribution',
-                data: [balance, 5000 - balance], // Assuming total balance as $10,000
-                backgroundColor: ['#36a2eb', '#ff6384'],
-                hoverOffset: 4
-            }]
+        // Logout functionality
+        document.getElementById('logout-button').onclick = function() {
+            localStorage.removeItem('username');
+            localStorage.removeItem('accountBalance');
+            localStorage.removeItem(`${username}_bookedPackages`);
+            window.location.href = 'index.html'; // Redirect to the home page
         };
 
-        // Config for pie chart
-        const pieConfig = {
+        // Set up charts
+        const ctxPie = document.getElementById('pieChart').getContext('2d');
+        const pieChart = new Chart(ctxPie, {
             type: 'pie',
-            data: pieData,
-        };
-
-        // Render pie chart
-        const pieChart = new Chart(document.getElementById('pieChart'), pieConfig);
-
-        // Sample data for the bar chart (booked packages by month)
-        const barLabels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        const barData = {
-            labels: barLabels,
-            datasets: [{
-                label: 'Packages Booked',
-                data: [2, 0, 0, 3, 0, 0, 1, 4, 0, 0, 0, 5], // Sample data
-                backgroundColor: '#ff6384',
-                borderColor: '#ff6384',
-                borderWidth: 4
-            }]
-        };
-
-        // Config for bar chart
-        const barConfig = {
-            type: 'bar',
-            data: barData,
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
+            data: {
+                labels: ['Spent', 'Remaining'],
+                datasets: [{
+                    label: 'Account Balance',
+                    data: [5000 - balance, balance],
+                    backgroundColor: ['#f44336', '#4caf50'],
+                }]
             }
-        };
+        });
 
-        // Render bar chart
-        const barChart = new Chart(document.getElementById('barChart'), barConfig);
+        const ctxBar = document.getElementById('barChart').getContext('2d');
+        const barChart = new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: ['Spent', 'Remaining'],
+                datasets: [{
+                    label: 'Balance',
+                    data: [5000 - balance, balance],
+                    backgroundColor: ['#f44336', '#4caf50'],
+                }]
+            }
+        });
+
+        const ctxLine = document.getElementById('lineChart').getContext('2d');
+        const lineChart = new Chart(ctxLine, {
+            type: 'line',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [{
+                    label: 'Balance Over Time',
+                    data: [5000, 4800, 4700, 4300, 4200, 4100, 4000],
+                    fill: false,
+                    borderColor: '#2196F3',
+                    tension: 0.1
+                }]
+            }
+        });
     </script>
 </body>
 </html>
