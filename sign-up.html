@@ -15,75 +15,72 @@
         .flag:hover {
             transform: scale(1.4);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }/* Social Media Button Styles */
-.social-media {
-    display: flex;
-    justify-content: center; /* Center align the social buttons */
-    margin-top: 20px; /* Optional: Space between form and social buttons */
-}
+        }
+        /* Social Media Button Styles */
+        .social-media {
+            display: flex;
+            justify-content: center; /* Center align the social buttons */
+            margin-top: 20px; /* Optional: Space between form and social buttons */
+        }
+        .social-media button {
+            background: rgba(0, 0, 0, 0.6); /* Darker background for social buttons */
+            color: #fff;
+            border: none;
+            border-radius: 15px; /* Rounded corners */
+            padding: 12px 20px; /* Adjust padding for better spacing */
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Space between icon and text */
+            margin: 12px;
+            box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3); /* Shadow effect */
+            transition: background-color 0.3s, transform 0.2s;
+            cursor: pointer; /* Change cursor to pointer */
+        }
+        .social-media button img {
+            height: 25px; /* Adjusted size for icons */
+        }
+        .social-media button:hover {
+            background: rgba(0, 0, 0, 0.8); /* Darker background on hover */
+            transform: scale(1.05); /* Slight scaling on hover */
+        }
+        .social-media button:active {
+            background: rgba(255, 255, 255, 0.2); /* Change background on click */
+            transform: scale(0.95); /* Slightly smaller on click */
+            color: #000; /* Optional: change text color on click */
+        }
 
-.social-media button {
-    background: rgba(0, 0, 0, 0.6); /* Darker background for social buttons */
-    color: #fff;
-    border: none;
-    border-radius: 15px; /* Rounded corners */
-    padding: 12px 20px; /* Adjust padding for better spacing */
-    font-size: 0.9em;
-    display: flex;
-    align-items: center;
-    gap: 10px; /* Space between icon and text */
-    margin: 12px;
-    box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3); /* Shadow effect */
-    transition: background-color 0.3s, transform 0.2s;
-    cursor: pointer; /* Change cursor to pointer */
-}
+        /* Form Styles */
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%; /* Ensure form takes full width of its container */
+        }
 
-.social-media button img {
-    height: 25px; /* Adjusted size for icons */
-}
+        #sign-up-button {
+            width: 100%;
+            max-width: 200px; /* Optional: Adjust button width */
+            padding: 10px;
+            background-color: #08090a; /* Change to your preferred button color */
+            color: white;
+            border: none;
+            font-size: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 20px; /* Add some space above the button */
+            transition: background-color 0.3s, transform 0.2s;
+        }
 
-.social-media button:hover {
-    background: rgba(0, 0, 0, 0.8); /* Darker background on hover */
-    transform: scale(1.05); /* Slight scaling on hover */
-}
+        #sign-up-button:hover {
+            background-color: #0056b3; /* Button color on hover */
+        }
 
-.social-media button:active {
-    background: rgba(255, 255, 255, 0.2); /* Change background on click */
-    transform: scale(0.95); /* Slightly smaller on click */
-    color: #000; /* Optional: change text color on click */
-}
-
-/* Form Styles */
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%; /* Ensure form takes full width of its container */
-}
-
-#sign-in-button {
-    width: 100%;
-    max-width: 200px; /* Optional: Adjust button width */
-    padding: 10px;
-    background-color: #007BFF; /* Change to your preferred button color */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-    margin-top: 20px; /* Add some space above the button */
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-#sign-in-button:hover {
-    background-color: #0056b3; /* Button color on hover */
-}
-
-#sign-in-button:active {
-    background-color: #003f7f; /* Darker background when clicked */
-    transform: scale(0.95); /* Slightly smaller on click */
-}
-
+        #sign-up-button:active {
+            background-color: #0e1011; /* Darker background when clicked */
+            transform: scale(0.95); /* Slightly smaller on click */
+        }
     </style>
 </head>
 <body>
@@ -113,10 +110,10 @@ form {
             <h1 id="sign-up-title">Sign Up</h1>
             <form id="signup-form" onsubmit="return handleSignUp(event)">
                 <label for="username" id="username-label">Username</label>
-                <input type="text" id="username-email" name="username-email" placeholder="Enter Username" required>
+                <input type="text" id="username" name="username" placeholder="Enter Username" required>
 
-                <label for="username-email" id="username-email-label">Email</label>
-                <input type="email" id="username-email" name="username-email" placeholder="Enter Email" required> 
+                <label for="email" id="username-email-label">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter Email" required> 
 
                 <label for="password" id="password-label">Password</label>
                 <input type="password" id="password" name="password" placeholder="Enter Password" required> 
@@ -211,48 +208,44 @@ form {
             document.getElementById('destination-link').textContent = navLinks[language].destination;
             document.getElementById('contact-link').textContent = navLinks[language].contact;
 
+            // Update flag
             document.getElementById('language-flag').src = flags[language];
+
+            // Save the selected language
+            localStorage.setItem('selectedLanguage', language);
         }
 
-        setLanguage(currentLanguage);
-
-        document.getElementById('language-flag').addEventListener('click', () => {
-            currentLanguage = languages[(languages.indexOf(currentLanguage) + 1) % languages.length];
-            localStorage.setItem('selectedLanguage', currentLanguage);
+        function changeLanguage() {
+            const currentIndex = languages.indexOf(currentLanguage);
+            const nextIndex = (currentIndex + 1) % languages.length;
+            currentLanguage = languages[nextIndex];
             setLanguage(currentLanguage);
-        });
+        }
 
         function handleSignUp(event) {
-            event.preventDefault();
+    event.preventDefault();
+    const username = document.getElementById('username').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
 
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('username-email').value;
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirm-password').value;
+    if (password !== confirmPassword) {
+        alert('Passwords do not match!');
+        return;
+    }
 
-            if (password !== confirmPassword) {
-                alert('Passwords do not match.');
-                return;
-            }
+    const userDetails = { id: Date.now(), username, email, password }; // Generate a unique ID
+    let users = JSON.parse(localStorage.getItem('users')) || []; // Fetch existing users
+    users.push(userDetails); // Add the new user
+    localStorage.setItem('users', JSON.stringify(users)); // Save back to local storage
 
-            // Get existing users from local storage
-            let users = JSON.parse(localStorage.getItem('users')) || [];
+    alert('Sign Up Successful! You can now sign in.');
+    window.location.href = 'sign-in.html'; // Redirect to sign-in page
+}
 
-            // Check if the user already exists
-            if (users.some(user => user.email === email)) {
-                alert('User with this email already exists.');
-                return;
-            }
 
-            // Store the user's details in local storage
-            users.push({ username, email, password });
-            localStorage.setItem('users', JSON.stringify(users));
-
-            alert('Sign Up successful!');
-
-            // Redirect to the account page
-            window.location.href = 'account.html';
-        }
+        document.getElementById('language-flag').addEventListener('click', changeLanguage);
+        setLanguage(currentLanguage);
     </script>
 </body>
 </html>
