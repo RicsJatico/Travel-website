@@ -15,7 +15,75 @@
         .flag:hover {
             transform: scale(1.4);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
+        }/* Social Media Button Styles */
+.social-media {
+    display: flex;
+    justify-content: center; /* Center align the social buttons */
+    margin-top: 20px; /* Optional: Space between form and social buttons */
+}
+
+.social-media button {
+    background: rgba(0, 0, 0, 0.6); /* Darker background for social buttons */
+    color: #fff;
+    border: none;
+    border-radius: 15px; /* Rounded corners */
+    padding: 12px 20px; /* Adjust padding for better spacing */
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between icon and text */
+    margin: 12px;
+    box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3); /* Shadow effect */
+    transition: background-color 0.3s, transform 0.2s;
+    cursor: pointer; /* Change cursor to pointer */
+}
+
+.social-media button img {
+    height: 25px; /* Adjusted size for icons */
+}
+
+.social-media button:hover {
+    background: rgba(0, 0, 0, 0.8); /* Darker background on hover */
+    transform: scale(1.05); /* Slight scaling on hover */
+}
+
+.social-media button:active {
+    background: rgba(255, 255, 255, 0.2); /* Change background on click */
+    transform: scale(0.95); /* Slightly smaller on click */
+    color: #000; /* Optional: change text color on click */
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%; /* Ensure form takes full width of its container */
+}
+
+#sign-in-button {
+    width: 100%;
+    max-width: 200px; /* Optional: Adjust button width */
+    padding: 10px;
+    background-color: #007BFF; /* Change to your preferred button color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 20px; /* Add some space above the button */
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#sign-in-button:hover {
+    background-color: #0056b3; /* Button color on hover */
+}
+
+#sign-in-button:active {
+    background-color: #003f7f; /* Darker background when clicked */
+    transform: scale(0.95); /* Slightly smaller on click */
+}
+
     </style>
 </head>
 <body>
@@ -45,16 +113,16 @@
             <h1 id="sign-up-title">Sign Up</h1>
             <form id="signup-form" onsubmit="return handleSignUp(event)">
                 <label for="username" id="username-label">Username</label>
-                <input type="text" id="username" name="username" required>
+                <input type="text" id="username-email" name="username-email" placeholder="Enter Username" required>
 
                 <label for="username-email" id="username-email-label">Email</label>
-                <input type="email" id="username-email" name="username-email" required>
+                <input type="email" id="username-email" name="username-email" placeholder="Enter Email" required> 
 
                 <label for="password" id="password-label">Password</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" name="password" placeholder="Enter Password" required> 
 
                 <label for="confirm-password" id="confirm-password-label">Confirm Password</label>
-                <input type="password" id="confirm-password" name="confirm-password" required>
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password" required> 
 
                 <button type="submit" id="sign-up-button">Sign Up</button>
 
@@ -64,7 +132,7 @@
                         <span id="facebook-text">Sign Up with Facebook</span>
                     </button>
                     <button type="button" id="gmail-signup">
-                        <img src="images/google.png" alt="Gmail Logo">
+                        <img src="images/googletrans.png" alt="Gmail Logo">
                         <span id="gmail-text">Sign Up with Gmail</span>
                     </button>
                 </div>

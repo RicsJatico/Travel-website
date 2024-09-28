@@ -15,7 +15,103 @@
         .flag:hover {
             transform: scale(1.4);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
+        }/* Social Media Button Styles */
+.social-media {
+    display: flex;
+    justify-content: center; /* Center align the social buttons */
+    margin-top: 20px; /* Optional: Space between form and social buttons */
+}
+
+.social-media button {
+    background: rgba(0, 0, 0, 0.6); /* Darker background for social buttons */
+    color: #fff;
+    border: none;
+    border-radius: 15px; /* Rounded corners */
+    padding: 12px 20px; /* Adjust padding for better spacing */
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between icon and text */
+    margin: 12px;
+    box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3); /* Shadow effect */
+    transition: background-color 0.3s, transform 0.2s;
+    cursor: pointer; /* Change cursor to pointer */
+}
+
+.social-media button img {
+    height: 25px; /* Adjusted size for icons */
+}
+
+.social-media button:hover {
+    background: rgba(0, 0, 0, 0.8); /* Darker background on hover */
+    transform: scale(1.05); /* Slight scaling on hover */
+}
+
+.social-media button:active {
+    background: rgba(255, 255, 255, 0.2); /* Change background on click */
+    transform: scale(0.95); /* Slightly smaller on click */
+    color: #000; /* Optional: change text color on click */
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%; /* Ensure form takes full width of its container */
+}
+
+#sign-in-button {
+    width: 100%;
+    max-width: 200px; /* Optional: Adjust button width */
+    padding: 10px;
+    background-color: #010102; /* Change to your preferred button color */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 20px; /* Add some space above the button */
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#sign-in-button:hover {
+    background-color: #0056b3; /* Button color on hover */
+}
+
+#sign-in-button:active {
+    background-color: #003f7f; /* Darker background when clicked */
+    transform: scale(0.95); /* Slightly smaller on click */
+}
+/* Container for remember me and forgot password */
+.remember-forgot {
+    display: flex;
+    justify-content: space-between; /* Space between items (left-right alignment) */
+    width: 100%; /* Ensure it takes up full width of the form */
+    align-items: center; /* Vertically center the content */
+    margin-top: 15px; /* Optional: Add margin for spacing */
+}
+
+/* Remember Me checkbox on the left */
+.remember-label {
+    display: flex;
+    align-items: center; /* Align checkbox and label text */
+    font-size: 0.9em; /* Adjust the font size if needed */
+}
+
+/* Forgot Password link on the right */
+.forgot-password {
+    text-decoration: none;
+    font-size: 0.9em;
+    color: #007BFF; /* Change to your preferred link color */
+    transition: color 0.3s ease;
+}
+
+.forgot-password:hover {
+    color: #0056b3; /* Change color on hover */
+}
+
     </style>
 </head>
 <body>
@@ -45,10 +141,11 @@
             <h1 id="sign-in-title">Sign In</h1>
             <form id="signin-form" onsubmit="return handleSignIn(event)">
                 <label for="username-email" id="username-label">Username or Email</label>
-                <input type="text" id="username-email" name="username-email" required>
+                <input type="text" id="username-email" name="username-email" placeholder="Enter Username or Email" required>
+
 
                 <label for="password" id="password-label">Password</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" name="password" placeholder="Enter Your Password" required>
 
                 <div class="remember-forgot">
                     <label class="remember-label">
@@ -65,7 +162,7 @@
                         <span id="facebook-text">Sign In with Facebook</span>
                     </button>
                     <button type="button">
-                        <img src="images/google.png" alt="Gmail Logo">
+                        <img src="images/googletrans.png" alt="Gmail Logo">
                         <span id="gmail-text">Sign In with Gmail</span>
                     </button>
                 </div>
