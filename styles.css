@@ -211,7 +211,7 @@ body {
     font-family: 'Orbitron', sans-serif; 
     margin: 0;
     padding: 0;
-    background: url('images/185289.jpg') no-repeat center center fixed;
+    background: url('images/b2.avif') no-repeat center center fixed;
     background-size: cover;
     display: flex;
     flex-direction: column;
@@ -492,7 +492,7 @@ form button {
     cursor: pointer;
     font-size: 0.8em;
     transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
-    box-shadow: 0 4px 10px rgba(76, 0, 255, 0.3); /* Slight shadow for button */
+    box-shadow: 0 4px 10px rgba(0, 255, 255, 0.4); /* Slight shadow for button */
 }
 
 form button:hover {             
